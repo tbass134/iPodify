@@ -1,0 +1,12 @@
+
+Features:
+	- after track is complete, play next track
+	- Offline Support
+	- adding track to playlist
+
+Bugs:
+	- Cant scrub track
+	- album artwork doesnt appear until 2nd track
+	- Allow user to scrub track to location
+
+Misc:

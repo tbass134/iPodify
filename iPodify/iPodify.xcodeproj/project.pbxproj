@@ -1,0 +1,590 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F45610A2D33451CA6C39993 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 983C5E5FB0BE4D2FBEC974B0 /* libPods.a */; };
+		9AAD3A7118F56F6C002ED121 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7018F56F6C002ED121 /* Foundation.framework */; };
+		9AAD3A7318F56F6C002ED121 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7218F56F6C002ED121 /* CoreGraphics.framework */; };
+		9AAD3A7518F56F6C002ED121 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7418F56F6C002ED121 /* UIKit.framework */; };
+		9AAD3A7B18F56F6C002ED121 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD3A7918F56F6C002ED121 /* InfoPlist.strings */; };
+		9AAD3A7D18F56F6C002ED121 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3A7C18F56F6C002ED121 /* main.m */; };
+		9AAD3A8118F56F6C002ED121 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3A8018F56F6C002ED121 /* AppDelegate.m */; };
+		9AAD3A8318F56F6C002ED121 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD3A8218F56F6C002ED121 /* Images.xcassets */; };
+		9AAD3A8A18F56F6D002ED121 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A8918F56F6D002ED121 /* XCTest.framework */; };
+		9AAD3A8B18F56F6D002ED121 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7018F56F6C002ED121 /* Foundation.framework */; };
+		9AAD3A8C18F56F6D002ED121 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7418F56F6C002ED121 /* UIKit.framework */; };
+		9AAD3A9418F56F6D002ED121 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD3A9218F56F6D002ED121 /* InfoPlist.strings */; };
+		9AAD3A9618F56F6D002ED121 /* iPodifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3A9518F56F6D002ED121 /* iPodifyTests.m */; };
+		9AAD3AB218F57151002ED121 /* SPPlaylist+SPPlaylistOfflineExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AAF18F57151002ED121 /* SPPlaylist+SPPlaylistOfflineExtensions.m */; };
+		9AAD3AB318F57151002ED121 /* SPPlaylistItem+SPPlaylistItemOfflineExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AB118F57151002ED121 /* SPPlaylistItem+SPPlaylistItemOfflineExtensions.m */; };
+		9AAD3AB818F5715C002ED121 /* PlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AB518F5715C002ED121 /* PlayerManager.m */; };
+		9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AB718F5715C002ED121 /* PlaylistManager.m */; };
+		9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABB18F57168002ED121 /* MainViewController.m */; };
+		9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABD18F57168002ED121 /* PlayerViewController.m */; };
+		9AAD3AC618F57168002ED121 /* PlaylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABF18F57168002ED121 /* PlaylistsTableViewController.m */; };
+		9AAD3AC718F57168002ED121 /* PlayListTracksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC118F57168002ED121 /* PlayListTracksTableViewController.m */; };
+		9AAD3AC818F57168002ED121 /* TracksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC318F57168002ED121 /* TracksViewController.m */; };
+		9AAD3ACA18F57184002ED121 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */; };
+		9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ACD18F57250002ED121 /* ArtistViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9AAD3A8D18F56F6D002ED121 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AAD3A6518F56F6C002ED121 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9AAD3A6C18F56F6C002ED121;
+			remoteInfo = iPodify;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		983C5E5FB0BE4D2FBEC974B0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AAD3A6D18F56F6C002ED121 /* iPodify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPodify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AAD3A7018F56F6C002ED121 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9AAD3A7218F56F6C002ED121 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9AAD3A7418F56F6C002ED121 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9AAD3A7818F56F6C002ED121 /* iPodify-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPodify-Info.plist"; sourceTree = "<group>"; };
+		9AAD3A7A18F56F6C002ED121 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9AAD3A7C18F56F6C002ED121 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9AAD3A7E18F56F6C002ED121 /* iPodify-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iPodify-Prefix.pch"; sourceTree = "<group>"; };
+		9AAD3A7F18F56F6C002ED121 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9AAD3A8018F56F6C002ED121 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9AAD3A8218F56F6C002ED121 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9AAD3A8818F56F6D002ED121 /* iPodifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPodifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AAD3A8918F56F6D002ED121 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		9AAD3A9118F56F6D002ED121 /* iPodifyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPodifyTests-Info.plist"; sourceTree = "<group>"; };
+		9AAD3A9318F56F6D002ED121 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9AAD3A9518F56F6D002ED121 /* iPodifyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iPodifyTests.m; sourceTree = "<group>"; };
+		9AAD3AAE18F57151002ED121 /* SPPlaylist+SPPlaylistOfflineExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SPPlaylist+SPPlaylistOfflineExtensions.h"; path = "Categories/SPPlaylist+SPPlaylistOfflineExtensions.h"; sourceTree = "<group>"; };
+		9AAD3AAF18F57151002ED121 /* SPPlaylist+SPPlaylistOfflineExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SPPlaylist+SPPlaylistOfflineExtensions.m"; path = "Categories/SPPlaylist+SPPlaylistOfflineExtensions.m"; sourceTree = "<group>"; };
+		9AAD3AB018F57151002ED121 /* SPPlaylistItem+SPPlaylistItemOfflineExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SPPlaylistItem+SPPlaylistItemOfflineExtensions.h"; path = "Categories/SPPlaylistItem+SPPlaylistItemOfflineExtensions.h"; sourceTree = "<group>"; };
+		9AAD3AB118F57151002ED121 /* SPPlaylistItem+SPPlaylistItemOfflineExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SPPlaylistItem+SPPlaylistItemOfflineExtensions.m"; path = "Categories/SPPlaylistItem+SPPlaylistItemOfflineExtensions.m"; sourceTree = "<group>"; };
+		9AAD3AB418F5715C002ED121 /* PlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerManager.h; path = Managers/PlayerManager.h; sourceTree = "<group>"; };
+		9AAD3AB518F5715C002ED121 /* PlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerManager.m; path = Managers/PlayerManager.m; sourceTree = "<group>"; };
+		9AAD3AB618F5715C002ED121 /* PlaylistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistManager.h; path = Managers/PlaylistManager.h; sourceTree = "<group>"; };
+		9AAD3AB718F5715C002ED121 /* PlaylistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaylistManager.m; path = Managers/PlaylistManager.m; sourceTree = "<group>"; };
+		9AAD3ABA18F57168002ED121 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = "View Controllers/MainViewController.h"; sourceTree = "<group>"; };
+		9AAD3ABB18F57168002ED121 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = "View Controllers/MainViewController.m"; sourceTree = "<group>"; };
+		9AAD3ABC18F57168002ED121 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerViewController.h; path = "View Controllers/PlayerViewController.h"; sourceTree = "<group>"; };
+		9AAD3ABD18F57168002ED121 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerViewController.m; path = "View Controllers/PlayerViewController.m"; sourceTree = "<group>"; };
+		9AAD3ABE18F57168002ED121 /* PlaylistsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistsTableViewController.h; path = "View Controllers/PlaylistsTableViewController.h"; sourceTree = "<group>"; };
+		9AAD3ABF18F57168002ED121 /* PlaylistsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaylistsTableViewController.m; path = "View Controllers/PlaylistsTableViewController.m"; sourceTree = "<group>"; };
+		9AAD3AC018F57168002ED121 /* PlayListTracksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayListTracksTableViewController.h; path = "View Controllers/PlayListTracksTableViewController.h"; sourceTree = "<group>"; };
+		9AAD3AC118F57168002ED121 /* PlayListTracksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayListTracksTableViewController.m; path = "View Controllers/PlayListTracksTableViewController.m"; sourceTree = "<group>"; };
+		9AAD3AC218F57168002ED121 /* TracksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TracksViewController.h; path = "View Controllers/TracksViewController.h"; sourceTree = "<group>"; };
+		9AAD3AC318F57168002ED121 /* TracksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TracksViewController.m; path = "View Controllers/TracksViewController.m"; sourceTree = "<group>"; };
+		9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPhone.storyboard"; sourceTree = "<group>"; };
+		9AAD3ACC18F57250002ED121 /* ArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistViewController.h; sourceTree = "<group>"; };
+		9AAD3ACD18F57250002ED121 /* ArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistViewController.m; sourceTree = "<group>"; };
+		C8EE8B80E16A4F01AF1E19E0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9AAD3A6A18F56F6C002ED121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAD3A7318F56F6C002ED121 /* CoreGraphics.framework in Frameworks */,
+				9AAD3A7518F56F6C002ED121 /* UIKit.framework in Frameworks */,
+				9AAD3A7118F56F6C002ED121 /* Foundation.framework in Frameworks */,
+				8F45610A2D33451CA6C39993 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAD3A8518F56F6D002ED121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAD3A8A18F56F6D002ED121 /* XCTest.framework in Frameworks */,
+				9AAD3A8C18F56F6D002ED121 /* UIKit.framework in Frameworks */,
+				9AAD3A8B18F56F6D002ED121 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9AAD3A6418F56F6C002ED121 = {
+			isa = PBXGroup;
+			children = (
+				9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */,
+				9AAD3A7618F56F6C002ED121 /* iPodify */,
+				9AAD3A8F18F56F6D002ED121 /* iPodifyTests */,
+				9AAD3A6F18F56F6C002ED121 /* Frameworks */,
+				9AAD3A6E18F56F6C002ED121 /* Products */,
+				C8EE8B80E16A4F01AF1E19E0 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		9AAD3A6E18F56F6C002ED121 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3A6D18F56F6C002ED121 /* iPodify.app */,
+				9AAD3A8818F56F6D002ED121 /* iPodifyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9AAD3A6F18F56F6C002ED121 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3A7018F56F6C002ED121 /* Foundation.framework */,
+				9AAD3A7218F56F6C002ED121 /* CoreGraphics.framework */,
+				9AAD3A7418F56F6C002ED121 /* UIKit.framework */,
+				9AAD3A8918F56F6D002ED121 /* XCTest.framework */,
+				983C5E5FB0BE4D2FBEC974B0 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9AAD3A7618F56F6C002ED121 /* iPodify */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3AAD18F57146002ED121 /* Categories */,
+				9AAD3AAC18F57140002ED121 /* Managers */,
+				9AAD3AAB18F57135002ED121 /* View Controllers */,
+				9AAD3A7F18F56F6C002ED121 /* AppDelegate.h */,
+				9AAD3A8018F56F6C002ED121 /* AppDelegate.m */,
+				9AAD3A8218F56F6C002ED121 /* Images.xcassets */,
+				9AAD3A7718F56F6C002ED121 /* Supporting Files */,
+			);
+			path = iPodify;
+			sourceTree = "<group>";
+		};
+		9AAD3A7718F56F6C002ED121 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3A7818F56F6C002ED121 /* iPodify-Info.plist */,
+				9AAD3A7918F56F6C002ED121 /* InfoPlist.strings */,
+				9AAD3A7C18F56F6C002ED121 /* main.m */,
+				9AAD3A7E18F56F6C002ED121 /* iPodify-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9AAD3A8F18F56F6D002ED121 /* iPodifyTests */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3A9518F56F6D002ED121 /* iPodifyTests.m */,
+				9AAD3A9018F56F6D002ED121 /* Supporting Files */,
+			);
+			path = iPodifyTests;
+			sourceTree = "<group>";
+		};
+		9AAD3A9018F56F6D002ED121 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3A9118F56F6D002ED121 /* iPodifyTests-Info.plist */,
+				9AAD3A9218F56F6D002ED121 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9AAD3AAB18F57135002ED121 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3ACC18F57250002ED121 /* ArtistViewController.h */,
+				9AAD3ACD18F57250002ED121 /* ArtistViewController.m */,
+				9AAD3ABA18F57168002ED121 /* MainViewController.h */,
+				9AAD3ABB18F57168002ED121 /* MainViewController.m */,
+				9AAD3ABC18F57168002ED121 /* PlayerViewController.h */,
+				9AAD3ABD18F57168002ED121 /* PlayerViewController.m */,
+				9AAD3ABE18F57168002ED121 /* PlaylistsTableViewController.h */,
+				9AAD3ABF18F57168002ED121 /* PlaylistsTableViewController.m */,
+				9AAD3AC018F57168002ED121 /* PlayListTracksTableViewController.h */,
+				9AAD3AC118F57168002ED121 /* PlayListTracksTableViewController.m */,
+				9AAD3AC218F57168002ED121 /* TracksViewController.h */,
+				9AAD3AC318F57168002ED121 /* TracksViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		9AAD3AAC18F57140002ED121 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3AB418F5715C002ED121 /* PlayerManager.h */,
+				9AAD3AB518F5715C002ED121 /* PlayerManager.m */,
+				9AAD3AB618F5715C002ED121 /* PlaylistManager.h */,
+				9AAD3AB718F5715C002ED121 /* PlaylistManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		9AAD3AAD18F57146002ED121 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9AAD3AAE18F57151002ED121 /* SPPlaylist+SPPlaylistOfflineExtensions.h */,
+				9AAD3AAF18F57151002ED121 /* SPPlaylist+SPPlaylistOfflineExtensions.m */,
+				9AAD3AB018F57151002ED121 /* SPPlaylistItem+SPPlaylistItemOfflineExtensions.h */,
+				9AAD3AB118F57151002ED121 /* SPPlaylistItem+SPPlaylistItemOfflineExtensions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9AAD3A6C18F56F6C002ED121 /* iPodify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AAD3A9918F56F6D002ED121 /* Build configuration list for PBXNativeTarget "iPodify" */;
+			buildPhases = (
+				BEA58889363F44008EB62ABE /* Check Pods Manifest.lock */,
+				9AAD3A6918F56F6C002ED121 /* Sources */,
+				9AAD3A6A18F56F6C002ED121 /* Frameworks */,
+				9AAD3A6B18F56F6C002ED121 /* Resources */,
+				B80A603EE841470D855A64CC /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iPodify;
+			productName = iPodify;
+			productReference = 9AAD3A6D18F56F6C002ED121 /* iPodify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9AAD3A8718F56F6D002ED121 /* iPodifyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AAD3A9C18F56F6D002ED121 /* Build configuration list for PBXNativeTarget "iPodifyTests" */;
+			buildPhases = (
+				9AAD3A8418F56F6D002ED121 /* Sources */,
+				9AAD3A8518F56F6D002ED121 /* Frameworks */,
+				9AAD3A8618F56F6D002ED121 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9AAD3A8E18F56F6D002ED121 /* PBXTargetDependency */,
+			);
+			name = iPodifyTests;
+			productName = iPodifyTests;
+			productReference = 9AAD3A8818F56F6D002ED121 /* iPodifyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9AAD3A6518F56F6C002ED121 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Tony Hung";
+				TargetAttributes = {
+					9AAD3A6C18F56F6C002ED121 = {
+						DevelopmentTeam = A583HE3WU9;
+					};
+					9AAD3A8718F56F6D002ED121 = {
+						TestTargetID = 9AAD3A6C18F56F6C002ED121;
+					};
+				};
+			};
+			buildConfigurationList = 9AAD3A6818F56F6C002ED121 /* Build configuration list for PBXProject "iPodify" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9AAD3A6418F56F6C002ED121;
+			productRefGroup = 9AAD3A6E18F56F6C002ED121 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9AAD3A6C18F56F6C002ED121 /* iPodify */,
+				9AAD3A8718F56F6D002ED121 /* iPodifyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9AAD3A6B18F56F6C002ED121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAD3A7B18F56F6C002ED121 /* InfoPlist.strings in Resources */,
+				9AAD3ACA18F57184002ED121 /* MainStoryboard-iPhone.storyboard in Resources */,
+				9AAD3A8318F56F6C002ED121 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAD3A8618F56F6D002ED121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAD3A9418F56F6D002ED121 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B80A603EE841470D855A64CC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BEA58889363F44008EB62ABE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9AAD3A6918F56F6C002ED121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAD3AB818F5715C002ED121 /* PlayerManager.m in Sources */,
+				9AAD3AC718F57168002ED121 /* PlayListTracksTableViewController.m in Sources */,
+				9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */,
+				9AAD3A8118F56F6C002ED121 /* AppDelegate.m in Sources */,
+				9AAD3AB318F57151002ED121 /* SPPlaylistItem+SPPlaylistItemOfflineExtensions.m in Sources */,
+				9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */,
+				9AAD3AC618F57168002ED121 /* PlaylistsTableViewController.m in Sources */,
+				9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */,
+				9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */,
+				9AAD3AC818F57168002ED121 /* TracksViewController.m in Sources */,
+				9AAD3A7D18F56F6C002ED121 /* main.m in Sources */,
+				9AAD3AB218F57151002ED121 /* SPPlaylist+SPPlaylistOfflineExtensions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAD3A8418F56F6D002ED121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAD3A9618F56F6D002ED121 /* iPodifyTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9AAD3A8E18F56F6D002ED121 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9AAD3A6C18F56F6C002ED121 /* iPodify */;
+			targetProxy = 9AAD3A8D18F56F6D002ED121 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9AAD3A7918F56F6C002ED121 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9AAD3A7A18F56F6C002ED121 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9AAD3A9218F56F6D002ED121 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9AAD3A9318F56F6D002ED121 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9AAD3A9718F56F6D002ED121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9AAD3A9818F56F6D002ED121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9AAD3A9A18F56F6D002ED121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8EE8B80E16A4F01AF1E19E0 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iPodify/iPodify-Prefix.pch";
+				INFOPLIST_FILE = "iPodify/iPodify-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9AAD3A9B18F56F6D002ED121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8EE8B80E16A4F01AF1E19E0 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iPodify/iPodify-Prefix.pch";
+				INFOPLIST_FILE = "iPodify/iPodify-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		9AAD3A9D18F56F6D002ED121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPodify.app/iPodify";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iPodify/iPodify-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "iPodifyTests/iPodifyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		9AAD3A9E18F56F6D002ED121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPodify.app/iPodify";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iPodify/iPodify-Prefix.pch";
+				INFOPLIST_FILE = "iPodifyTests/iPodifyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9AAD3A6818F56F6C002ED121 /* Build configuration list for PBXProject "iPodify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AAD3A9718F56F6D002ED121 /* Debug */,
+				9AAD3A9818F56F6D002ED121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AAD3A9918F56F6D002ED121 /* Build configuration list for PBXNativeTarget "iPodify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AAD3A9A18F56F6D002ED121 /* Debug */,
+				9AAD3A9B18F56F6D002ED121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AAD3A9C18F56F6D002ED121 /* Build configuration list for PBXNativeTarget "iPodifyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AAD3A9D18F56F6D002ED121 /* Debug */,
+				9AAD3A9E18F56F6D002ED121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9AAD3A6518F56F6C002ED121 /* Project object */;
+}
