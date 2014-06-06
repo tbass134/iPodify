@@ -9,14 +9,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iPodify/View Controllers/PlayListTracksTableViewController.m"
-            timestampString = "418774652.336299"
+            filePath = "iPodify/ArtistViewController.m"
+            timestampString = "421517886.81342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "-initWithStyle:"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-swipeableCell:didSelectButtonAtIndex:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ArtistViewController swipeableCell:didSelectButtonAtIndex:]"
+                  moduleName = "iPodify"
+                  urlString = "file:///Users/tbass134/Documents/PROJECTS%20LOCAL/ipodify-github/iPodify/iPodify/ArtistViewController.m"
+                  timestampString = "421519164.543173"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "291">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61-[ArtistViewController swipeableCell:didSelectButtonAtIndex:]_block_invoke"
+                  moduleName = "iPodify"
+                  urlString = "file:///Users/tbass134/Documents/PROJECTS%20LOCAL/ipodify-github/iPodify/iPodify/ArtistViewController.m"
+                  timestampString = "421519164.543386"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "85">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

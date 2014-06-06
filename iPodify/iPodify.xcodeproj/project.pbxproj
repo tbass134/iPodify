@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F45610A2D33451CA6C39993 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 983C5E5FB0BE4D2FBEC974B0 /* libPods.a */; };
+		9A9F0D44190A861700E7657B /* TrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F0D43190A861700E7657B /* TrackCell.m */; };
 		9AAD3A7118F56F6C002ED121 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7018F56F6C002ED121 /* Foundation.framework */; };
 		9AAD3A7318F56F6C002ED121 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7218F56F6C002ED121 /* CoreGraphics.framework */; };
 		9AAD3A7518F56F6C002ED121 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD3A7418F56F6C002ED121 /* UIKit.framework */; };
@@ -45,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		983C5E5FB0BE4D2FBEC974B0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A9F0D42190A861700E7657B /* TrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackCell.h; path = "View Controllers/TrackCell.h"; sourceTree = "<group>"; };
+		9A9F0D43190A861700E7657B /* TrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackCell.m; path = "View Controllers/TrackCell.m"; sourceTree = "<group>"; };
 		9AAD3A6D18F56F6C002ED121 /* iPodify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPodify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AAD3A7018F56F6C002ED121 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9AAD3A7218F56F6C002ED121 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,6 +113,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A9F0D41190A85ED00E7657B /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9A9F0D42190A861700E7657B /* TrackCell.h */,
+				9A9F0D43190A861700E7657B /* TrackCell.m */,
+			);
+			name = "Custom Cells";
+			sourceTree = "<group>";
+		};
 		9AAD3A6418F56F6C002ED121 = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +201,7 @@
 		9AAD3AAB18F57135002ED121 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9A9F0D41190A85ED00E7657B /* Custom Cells */,
 				9AAD3ACC18F57250002ED121 /* ArtistViewController.h */,
 				9AAD3ACD18F57250002ED121 /* ArtistViewController.m */,
 				9AAD3ABA18F57168002ED121 /* MainViewController.h */,
@@ -362,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AAD3AB818F5715C002ED121 /* PlayerManager.m in Sources */,
+				9A9F0D44190A861700E7657B /* TrackCell.m in Sources */,
 				9AAD3AC718F57168002ED121 /* PlayListTracksTableViewController.m in Sources */,
 				9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */,
 				9AAD3A8118F56F6C002ED121 /* AppDelegate.m in Sources */,

@@ -21,6 +21,8 @@
 -(void)initPlayer;
 -(BOOL )playTrack:(SPTrack *)track with_block:(void (^)(BOOL isReady))block;
 -(void)starTrack:(SPTrack *)track;
+-(void)getTracksForAlbum:(SPAlbum *)album with_block:(void (^)(NSArray *tracks))block;
+
 
 -(void)coverForAlbum:(SPAlbum *)album with_block:(void (^)(UIImage *image))block;
 -(void)seekToPosition:(NSTimeInterval)offset;

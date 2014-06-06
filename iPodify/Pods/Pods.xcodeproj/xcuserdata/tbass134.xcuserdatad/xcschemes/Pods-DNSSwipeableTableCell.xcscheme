@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1089BF21C1BA46CA8DA6126F"
-               BuildableName = "libPods.a"
-               BlueprintName = "Pods"
+               BlueprintIdentifier = "AD62C8E32BD54C7FA1BFB044"
+               BuildableName = "libPods-DNSSwipeableTableCell.a"
+               BlueprintName = "Pods-DNSSwipeableTableCell"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

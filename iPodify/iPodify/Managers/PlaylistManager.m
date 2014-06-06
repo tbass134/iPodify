@@ -52,6 +52,10 @@
           }];
      }];
 }
+-(void)getCoverForPlaylist:(SPPlaylist *)playlist with_block:(void (^)(UIImage *image))block
+{
+    
+}
 -(void)loadAllSongs
 {
     //TODO build Dictionary sorted by artists-albums-tracks

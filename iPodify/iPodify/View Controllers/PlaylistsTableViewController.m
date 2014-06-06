@@ -9,6 +9,10 @@
 #import "PlaylistsTableViewController.h"
 #import "PlaylistManager.h"
 #import "TracksViewController.h"
+
+
+
+
 #import "SPPlaylist+SPPlaylistOfflineExtensions.h"
 @interface PlaylistsTableViewController ()
 
@@ -33,16 +37,15 @@
         [self.tableView reloadData];
     }];
     
-    
-    
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if(self.addToPlaylist)
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(close:)];
 }
+-(void)close:(id)sender
+{
+    //just close the vc
+    self.addToPlaylist(nil);
 
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -70,7 +73,15 @@
     
     // Configure the cell...
     SPPlaylist *playlist = self.playlists[indexPath.row];
-    cell.textLabel.text = playlist.name;
+    NSLog(@"playlist %@",playlist.name);
+    if(playlist.name)
+        cell.textLabel.text = playlist.name;
+    else
+        cell.textLabel.text  = @"Loading..";
+    
+    //NSLog(@"image %@",playlist.image)
+    cell.imageView.image = playlist.image;
+    
     [cell setGestureRecognizers:@[longPress]];
     
     

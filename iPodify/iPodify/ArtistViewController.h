@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CocoaLibSpotify.h"
-@interface ArtistViewController : UIViewController
+#import "DNSSwipeableCell.h"
+@interface ArtistViewController : UIViewController<DNSSwipeableCellDelegate, DNSSwipeableCellDataSource>
+
 @property(nonatomic,strong)SPArtist *artist;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic,strong)NSArray *albums;
+@property (nonatomic, strong) NSMutableArray *cellsCurrentlyEditing;
+@property (nonatomic, strong) NSMutableArray *itemTitles;
+
 @end

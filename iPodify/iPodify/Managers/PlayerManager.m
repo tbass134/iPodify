@@ -123,6 +123,14 @@
 -(void)saveTrack:(SPTrack *)track
 {
 }
+-(void)getTracksForAlbum:(SPAlbum *)album with_block:(void (^)(NSArray *tracks))block;
+{
+    [SPAsyncLoading waitUntilLoaded:[SPAlbumBrowse browseAlbum:album inSession:[SPSession sharedSession]] timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+        SPArtistBrowse *ab = loadedItems[0];
+        block(ab.tracks);
+        
+    }];
+}
 #pragma mark -
 #pragma mark Playback
 

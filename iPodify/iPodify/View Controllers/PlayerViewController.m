@@ -64,7 +64,10 @@
     //NSLog(@"slide %f",self.duration_slider.value);
     
 }
-
+-(void)updateTrackCount
+{
+    self.title = [NSString stringWithFormat:@"track %i of %i",self.current_track_index,self.tracks.count];
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     //[PlayerManager sharedInstance].currentTrack = nil;
@@ -93,6 +96,7 @@
         if(isReady)
         {
             trackLoaded = YES;
+            [self updateTrackCount];
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                           target:self
                                                         selector:@selector(updateTime:)
@@ -121,8 +125,10 @@
 
 - (IBAction)scrubberChanged:(id)sender {
     
-    is_seeking = YES;    
-    //self.current_time_txt.text = [self formattedStringForDuration:[[PlayerManager sharedInstance].playbackManager trackPosition]];
+    is_seeking = YES;
+    UISlider *slider = (UISlider *)sender;
+    NSTimeInterval currentTime = self.current_track.duration *(slider.value);
+    self.current_time_txt.text = [self formattedStringForDuration:currentTime];
     
 }
 -(void)sliderTouchUpInsideAction:(id)sender
@@ -212,6 +218,10 @@
 }
 - (IBAction)saveTrack:(id)sender {
     
+    if(self.current_track)
+    {
+        
+    }
 }
 
 - (IBAction)addToPlaylist:(id)sender {
@@ -220,21 +230,27 @@
     
     [playlists setAddToPlaylist:^(SPPlaylist *playlist) {
         
-        [playlist addItem:self.current_track atIndex:0 callback:^(NSError *error) {
-            if(!error)
-            {
-                printf("track added!");
-            }
-            else
-            {
-                NSLog(@"error %@",error);
-            }
-            [playlists dismissViewControllerAnimated:YES completion:nil];
+        if(playlist)
+        {
+            [playlist addItem:self.current_track atIndex:0 callback:^(NSError *error) {
+                if(!error)
+                {
+                    printf("track added!");
+                }
+                else
+                {
+                    NSLog(@"error %@",error);
+                }
 
-        }];
+            }];
+        }
+        [playlists dismissViewControllerAnimated:YES completion:nil];
+
     }];
     
-    [self.navigationController presentViewController:playlists animated:YES completion:nil];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:playlists];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
     
 }
 - (NSString*)formattedStringForDuration:(NSTimeInterval)duration

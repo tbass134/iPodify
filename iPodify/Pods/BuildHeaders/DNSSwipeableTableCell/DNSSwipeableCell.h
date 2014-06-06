@@ -1,0 +1,1 @@
+../../DNSSwipeableTableCell/Library/DNSSwipeableCell.h
