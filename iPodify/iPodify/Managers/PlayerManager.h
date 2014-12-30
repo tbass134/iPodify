@@ -7,24 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPPlaybackManager.h"
-#import "CocoaLibSpotify.h"
 
-@interface PlayerManager : NSObject<SPSessionDelegate,SPSessionPlaybackDelegate>
+@interface PlayerManager : NSObject <SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate>
+@property (nonatomic,strong) SPTSession *session;
+@property (nonatomic, strong) SPTAudioStreamingController *player;
+
 @property (nonatomic, strong) void (^trackComplete)();
 @property (nonatomic, strong) void (^trackPaused)();
 @property (nonatomic, strong) void (^trackError)(NSError *error);
 
 
-@property (nonatomic, readwrite, strong) SPPlaybackManager *playbackManager;
+//@property (nonatomic, readwrite, strong) SPPlaybackManager *playbackManager;
 //@property(nonatomic,strong)SPTrack *currentTrack;
 -(void)initPlayer;
--(BOOL )playTrack:(SPTrack *)track with_block:(void (^)(BOOL isReady))block;
--(void)starTrack:(SPTrack *)track;
--(void)getTracksForAlbum:(SPAlbum *)album with_block:(void (^)(NSArray *tracks))block;
+- (void)loginWithSession:(SPTSession *)session usingCallback:(void (^)(BOOL success))block;
+-(BOOL )playTrack:(SPTTrack *)track with_block:(void (^)(BOOL isReady))block;
+-(void)starTrack:(SPTTrack *)track;
 
-
--(void)coverForAlbum:(SPAlbum *)album with_block:(void (^)(UIImage *image))block;
+-(void)coverForAlbum:(SPTAlbum *)album with_block:(void (^)(UIImage *image))block;
 -(void)seekToPosition:(NSTimeInterval)offset;
 + (PlayerManager*)sharedInstance;
 

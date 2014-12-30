@@ -9,9 +9,6 @@
 #import "TracksViewController.h"
 #import "PlayerViewController.h"
 #import "PlaylistManager.h"
-#import "TrackCell.h"
-#import "PlayerManager.h"
-#import "PlaylistsTableViewController.h"
 @interface TracksViewController ()
 
 @end
@@ -29,47 +26,41 @@
 
 - (void)viewDidLoad
 {
-    //Register the custom subclass
-    [self.tableView registerClass:[TrackCell class] forCellReuseIdentifier:@"Cell"];
-
-    
-    self.cellsCurrentlyEditing = [NSMutableArray array];
-
-    if(self.album) //comming from arist view
-    {
-        [SPAsyncLoading waitUntilLoaded:[SPAlbumBrowse browseAlbum:self.album inSession:[SPSession sharedSession]] timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
-            SPArtistBrowse *ab = loadedItems[0];
-            //NSLog(@"tracks %@",ab.tracks);
-            self.tracks = ab.tracks;
-            
-            albumTracks = [NSMutableArray arrayWithArray:self.tracks];
-            
-            NSMutableArray *tempTracks = [[NSMutableArray alloc]init];
-            NSLog(@"self.tracks %@",self.tracks);
-            for(SPTrack *track in self.tracks)
-            {
-                if([[PlaylistManager sharedInstance]isTrackInPlaylist:track])
-                {
-                    [tempTracks addObject:track];
-                }
-            }
-            tracksInPlayist = tempTracks;
-            
-            [self.tableView reloadData];
-
-        }];
-    }
-    else if(self.playlist)
-    {
-        NSMutableArray *tracks = [[NSMutableArray alloc]init];
-        
-        for (SPPlaylistItem *item in self.playlist.items) {
-            if (item.itemClass == [SPTrack class])
-                [tracks addObject:item.item];
-        }
-        self.tracks = tracks;
-        [self.tableView reloadData];
-    }
+//    if(self.album) //comming from arist view
+//    {
+//        [SPAsyncLoading waitUntilLoaded:[SPAlbumBrowse browseAlbum:self.album inSession:[SPSession sharedSession]] timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+//            SPArtistBrowse *ab = loadedItems[0];
+//            //NSLog(@"tracks %@",ab.tracks);
+//            self.tracks = ab.tracks;
+//            
+//            albumTracks = [NSMutableArray arrayWithArray:self.tracks];
+//            
+//            NSMutableArray *tempTracks = [[NSMutableArray alloc]init];
+//            NSLog(@"self.tracks %@",self.tracks);
+//            for(SPTrack *track in self.tracks)
+//            {
+//                if([[PlaylistManager sharedInstance]isTrackInPlaylist:track])
+//                {
+//                    [tempTracks addObject:track];
+//                }
+//            }
+//            tracksInPlayist = tempTracks;
+//            
+//            [self.tableView reloadData];
+//
+//        }];
+//    }
+//    else if(self.playlist)
+//    {
+//        NSMutableArray *tracks = [[NSMutableArray alloc]init];
+//        
+//        for (SPPlaylistItem *item in self.playlist.items) {
+//            if (item.itemClass == [SPTrack class])
+//                [tracks addObject:item.item];
+//        }
+//        self.tracks = tracks;
+//        [self.tableView reloadData];
+//    }
        [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -96,10 +87,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TrackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    SPTrack *track;
+//    SPDispatchAsync(^{
+//        SPArtistBrowse *ab = [SPArtistBrowse browseArtist:self.artist inSession:[SPSession sharedSession] type:SP_ARTISTBROWSE_NO_TRACKS];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            NSLog(@"ab %@",ab.biography);
+//        });
+//    });
+    SPTTrack *track;
     if(self.playlist)
         track = self.tracks[indexPath.row];
     else
@@ -110,171 +108,33 @@
             track = tracksInPlayist[indexPath.row];
     }
 
-    cell.exampleLabel.text = track.name;
-    cell.exampleImageView.image = nil;
-    [[PlayerManager sharedInstance]coverForAlbum:track.album with_block:^(UIImage *image) {
-        cell.exampleImageView.image = image;
-
-    }];
-   
+    cell.textLabel.text = track.name;
+    
+    cell.imageView.image = nil;
+    
+    
+    SPTTrack *currentTrack = [self.tracks objectAtIndex:indexPath.row];
+    cell.textLabel.text =currentTrack.name;
     
     //if the track is starrted, show a star on the left hand side
-    if(track.starred)
-    {
-        NSLog(@"current track %@ is starred",track.name);
-    }
-    
-    //Set up the buttons
-    cell.indexPath = indexPath;
-    cell.dataSource = self;
-    cell.delegate = self;
-    
-    [cell setNeedsUpdateConstraints];
-    
-    //Reopen the cell if it was already editing
-    if ([self.cellsCurrentlyEditing containsObject:indexPath]) {
-        [cell openCell:NO];
-    }
+//    if(currentTrack.starred)
+//    {
+//        NSLog(@"current track %@ is starred",currentTrack.name);
+//    }
+//    
+    //This is a placeholder to test adding tracks to playlist until we get the swipe animation on the cell
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(addToPlaylist:)];
+    [cell addGestureRecognizer:longPress];
 
+    // Configure the cell...
+    
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 80;
-}
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"PlayTrack" sender:self];
     
 }
-#pragma mark Required Methods
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //This needs to return NO or you'll only get the stock delete button.
-    return NO;
-}
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //Deletes the object from the array
-        [_itemTitles removeObjectAtIndex:indexPath.row];
-        
-        //Deletes the row from the tableView.
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else {
-        //This is something that hasn't been set up yet - add a log to determine
-        //what sort of editing style you also need to handle.
-        NSLog(@"Unhandled editing style! %d", editingStyle);
-    }
-    
-    [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
-}
-
-#pragma mark - DNSSwipeableCellDataSource
-
-#pragma mark Required Methods
-- (NSInteger)numberOfButtonsInSwipeableCellAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 3;
-    
-}
-
-- (NSString *)titleForButtonAtIndex:(NSInteger)index inCellAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch (index) {
-        case 0:
-            return NSLocalizedString(@"Star", @"Star");
-            break;
-        case 1:
-            return NSLocalizedString(@"Add", @"Add");
-            break;
-        case 2:
-            return NSLocalizedString(@"Save", @"Save");
-            break;
-        default:
-            break;
-    }
-    
-    return nil;
-}
-
-- (UIColor *)backgroundColorForButtonAtIndex:(NSInteger)index inCellAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch (index) {
-        case 0:
-            return [UIColor yellowColor];
-            break;
-        case 1:
-            return [UIColor greenColor];
-            break;
-        case 2:
-            return [UIColor whiteColor];
-            break;
-    }
-    return NULL;
-}
-
-- (UIColor *)textColorForButtonAtIndex:(NSInteger)index inCellAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [UIColor blackColor];
-}
-#pragma mark - DNSSwipeableCellDelegate
-
-- (void)swipeableCell:(DNSSwipeableCell *)cell didSelectButtonAtIndex:(NSInteger)index
-{
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    SPTrack *currentTrack = [self.tracks objectAtIndex:indexPath.row];
-
-    if(index ==0)
-    {
-        //Star Track
-        [[PlayerManager sharedInstance]starTrack:currentTrack];
-        [[[UIAlertView alloc]initWithTitle:@"Track Saved" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil]show];
-    }
-    else if (index ==1)
-    {
-        __weak PlaylistsTableViewController *playlists = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlists"];
-        
-        [playlists setAddToPlaylist:^(SPPlaylist *playlist) {
-            
-//            if(playlist)
-//            {
-//                [playlist addItem:currentTrack atIndex:0 callback:^(NSError *error) {
-//                    if(!error)
-//                    {
-//                        printf("track added!");
-//                           [[[UIAlertView alloc]initWithTitle:@"Track Added" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil]show];
-//                    }
-//                    else
-//                    {
-//                        NSLog(@"error %@",error);
-//                    }
-//                    
-//                }];
-//            }
-            [playlists dismissViewControllerAnimated:YES completion:nil];
-            
-        }];
-        
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:playlists];
-        
-        [self.navigationController presentViewController:nav animated:YES completion:nil];
-    }
-    [cell closeCell:YES];
-}
- 
-- (void)swipeableCellDidOpen:(DNSSwipeableCell *)cell
-{
-    [self.cellsCurrentlyEditing addObject:cell.indexPath];
-}
-
-- (void)swipeableCellDidClose:(DNSSwipeableCell *)cell
-{
-    [self.cellsCurrentlyEditing removeObject:cell.indexPath];
-}
-
-
 
 #pragma mark - Navigation
 
@@ -296,15 +156,15 @@
 }
 -(void)addToPlaylist:(UILongPressGestureRecognizer *)guesture
 {
-    SPTrack *currentTrack = [self.tracks objectAtIndex:0];
+    SPTTrack *currentTrack = [self.tracks objectAtIndex:0];
     
     //show modal of playlists, then add the track to the playlist
     //for now, just add the track to a playlist
-    SPPlaylist *firstPlaylist = [PlaylistManager sharedInstance].playlists[1];
-    NSString *playlistName = firstPlaylist.name;
-    [firstPlaylist addItem:currentTrack atIndex:0 callback:^(NSError *error) {
-        NSLog(@"track %@ added to playlist %@",currentTrack.name,playlistName);
-    }];
+    SPTPlaylistList *firstPlaylist = [PlaylistManager sharedInstance].playlists[1];
+    //NSString *playlistName = firstPlaylist.name;
+//    [firstPlaylist addItem:currentTrack atIndex:0 callback:^(NSError *error) {
+//        NSLog(@"track %@ added to playlist %@",currentTrack.name,playlistName);
+//    }];
 
 }
 - (void)didReceiveMemoryWarning

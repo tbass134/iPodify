@@ -1,3 +1,4 @@
-platform :ios, '7.0'
+platform :ios
+
 pod 'CocoaLibSpotify', '~> 2.4'
 pod 'DNSSwipeableTableCell', '~> 0.0'

@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CocoaLibSpotify.h"
 
-@interface MainViewController : UIViewController<SPSessionDelegate, SPSessionPlaybackDelegate,UITableViewDataSource,UITableViewDelegate>
-
-@property(nonatomic,strong)	SPPlaybackManager *playbackManager;
+@interface MainViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *playlists;
 @property (nonatomic, strong) NSMutableArray *songs;
@@ -19,8 +16,6 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *table_view;
 
-- (IBAction)playTrack:(id)sender;
-- (IBAction)setTrackPosition:(id)sender;
-- (IBAction)setVolume:(id)sender;
+- (void)sessionDataLoaded;
 
 @end

@@ -29,11 +29,6 @@
 {
     [super viewDidLoad];
     
-   
-    
-    
-    
-    
     //show tracks that are in users playlist fol
 }
 - (void)didReceiveMemoryWarning
@@ -51,7 +46,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.playlist.items.count;
+    return 0;
 }
 
 
@@ -59,21 +54,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    // Configure the cell...
-    SPPlaylist *playlistItem =self.playlist.items[indexPath.row];
-    
-    SPPlaylistItem *item = playlistItem.items;
-    
-    if (item.itemClass == [SPTrack class])
-    {
-        SPTrack *track = item.item;
-        cell.textLabel.text = track.name;
 
-    }
-    
-
-    
-    
     
     return cell;
 }
@@ -98,7 +79,7 @@
         player.arist = nil;
         player.album = nil;
         player.current_track_index = path.row;
-        player.tracks = self.playlist.items;
+        //player.tracks = self.playlist.items;
         
     }
 

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CocoaLibSpotify.h"
 
 @interface PlayListTracksTableViewController : UITableViewController
 
-@property(nonatomic,strong)SPPlaylist *playlist;
+@property(nonatomic,strong)SPTPlaylistList *playlist;
 @end

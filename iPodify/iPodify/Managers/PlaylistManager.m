@@ -7,7 +7,7 @@
 //
 
 #import "PlaylistManager.h"
-
+#import "PlayerManager.h"
 @implementation PlaylistManager
 
 
@@ -21,40 +21,44 @@
     });
     return _sharedInstance;
 }
--(void)loadPlaylists:(void (^)(NSArray *playlists))block
+-(void)loadPlaylists:(void (^)(SPTPlaylistList *playlists))block
 {
+    [SPTRequest playlistsForUserInSession:[PlayerManager sharedInstance].session callback:^(NSError *error, id object) {
+        NSLog(@"object %@",object);
+        SPTPlaylistList *playlists = (SPTPlaylistList *)object;
+        NSLog(@"playlists %@",playlists.items);
+        block(playlists);
 
-    [SPAsyncLoading waitUntilLoaded:[SPSession sharedSession].userPlaylists timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedContainers, NSArray *notLoadedContainers)
-     {
-         // User playlists are loaded — wait for playlists to load their metadata.
-         
-         NSMutableArray *playlists = [NSMutableArray array];
-         
-         [playlists addObject:[SPSession sharedSession].starredPlaylist];
-         [playlists addObject:[SPSession sharedSession].inboxPlaylist];
-         [playlists addObjectsFromArray:[SPSession sharedSession].userPlaylists.flattenedPlaylists];
-         
-         [SPAsyncLoading waitUntilLoaded:playlists timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedPlaylists, NSArray *notLoadedPlaylists)
-          {
-              
-              self.playlists = loadedPlaylists;
-              //[self loadAllSongs];
-              
-                // All of our playlists have loaded their metadata — wait for all tracks to load their metadata.
-              //self.playlists = [[NSMutableArray alloc] initWithArray:loadedPlaylists];
-              //NSLog(@"arrPlaylist %@",self.playlists);
-              //NSLog(@"notLoadedPlaylists %@",notLoadedPlaylists);
-              if(block)
-              {
-                  block(loadedPlaylists);
-              }
-              
-          }];
-     }];
-}
--(void)getCoverForPlaylist:(SPPlaylist *)playlist with_block:(void (^)(UIImage *image))block
-{
-    
+    }];
+     
+
+//    [SPAsyncLoading waitUntilLoaded:[SPSession sharedSession].userPlaylists timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedContainers, NSArray *notLoadedContainers)
+//     {
+//         // User playlists are loaded — wait for playlists to load their metadata.
+//         
+//         NSMutableArray *playlists = [NSMutableArray array];
+//         
+//         [playlists addObject:[SPSession sharedSession].starredPlaylist];
+//         [playlists addObject:[SPSession sharedSession].inboxPlaylist];
+//         [playlists addObjectsFromArray:[SPSession sharedSession].userPlaylists.flattenedPlaylists];
+//         
+//         [SPAsyncLoading waitUntilLoaded:playlists timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedPlaylists, NSArray *notLoadedPlaylists)
+//          {
+//              
+//              self.playlists = loadedPlaylists;
+//              //[self loadAllSongs];
+//              
+//                // All of our playlists have loaded their metadata — wait for all tracks to load their metadata.
+//              //self.playlists = [[NSMutableArray alloc] initWithArray:loadedPlaylists];
+//              //NSLog(@"arrPlaylist %@",self.playlists);
+//              //NSLog(@"notLoadedPlaylists %@",notLoadedPlaylists);
+//              if(block)
+//              {
+//                  block(loadedPlaylists);
+//              }
+//              
+//          }];
+//     }];
 }
 -(void)loadAllSongs
 {
@@ -65,33 +69,33 @@
     if(self.songs == nil)
         self.songs = [[NSMutableArray alloc]init];
     
-    for(SPPlaylist *playlist in self.playlists)
-    {
-        for(SPPlaylistItem *_track in playlist.items)
-        {
-            if (_track.itemClass == [SPTrack class])
-            {
-                SPTrack *track = _track.item;
-                SPArtist *artist = track.album.artist;
-                
-                NSString *artistName= artist.name;
-                //NSLog(@"artistName %@",artistName);
-                
-                
-                if(![self containsKey:artistName])
-                {
-                    [self.playListTracks setValue:@{} forKey:artistName];
-                }
-                else
-                {
-                    //add the track
-                    
-                }
-
-            }
-        }
-
-    }
+//    for(SPTPlaylistList *playlist in self.playlists)
+//    {
+//        for(SPTPartialTrack *_track in playlist.items)
+//        {
+//            if (_track.itemClass == [SPTTrack class])
+//            {
+//                SPTTrack *track = _track.item;
+//                SPTArtist *artist = track.album.artist;
+//                
+//                NSString *artistName= artist.name;
+//                //NSLog(@"artistName %@",artistName);
+//                
+//                
+//                if(![self containsKey:artistName])
+//                {
+//                    [self.playListTracks setValue:@{} forKey:artistName];
+//                }
+//                else
+//                {
+//                    //add the track
+//                    
+//                }
+//
+//            }
+//        }
+//
+//    }
     
     NSLog(@"self.playListTracks %@",self.playListTracks);
 }
@@ -102,7 +106,7 @@
     return retVal;
 }
 //check if the track is in any of our playlists
--(BOOL)isTrackInPlaylist:(SPTrack *)track
+-(BOOL)isTrackInPlaylist:(SPTTrack *)track
 {
     //background thread
     
@@ -118,8 +122,8 @@
 //    }
     return trackLocated;
 }
--(void)setPlaylistAsOffline:(SPPlaylist *)playlist;
+-(void)setPlaylistAsOffline:(SPTPlaylistList *)playlist;
 {
-    [playlist setMarkedForOfflinePlayback:YES];
+    //[playlist setMarkedForOfflinePlayback:YES];
 }
 @end

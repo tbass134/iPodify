@@ -7,7 +7,6 @@
 //
 
 #import "PlayerViewController.h"
-#import "CocoaLibSpotify.h"
 #import "PlayerManager.h"
 #import "PlaylistsTableViewController.h"
 #import <MediaPlayer/MPVolumeView.h>
@@ -44,30 +43,27 @@
     if(is_seeking)
         return;
     
-    //NSLog(@"current_track %@",self.current_track);
-    NSTimeInterval currentTime =[[PlayerManager sharedInstance].playbackManager trackPosition] ;
-    NSTimeInterval totalTime = self.current_track.duration;
-    //NSLog(@"currentTime %f totalTime %f",currentTime,totalTime);
-    
-    self.current_time_txt.text = [self formattedStringForDuration:currentTime];
-    
-    self.duration_slider.value = (currentTime /totalTime);
-    
-    NSLog(@"[PlayerManager sharedInstance].currentTrack %@",[PlayerManager sharedInstance].playbackManager.currentTrack );
-    if([PlayerManager sharedInstance].playbackManager.currentTrack == nil)
-    {
-        NSLog(@"track is over");
-        trackLoaded = NO;
-        [timer invalidate];
-        [self playNextTrack:nil];
-    }
+//    //NSLog(@"current_track %@",self.current_track);
+//    NSTimeInterval currentTime =[[PlayerManager sharedInstance].playbackManager trackPosition] ;
+//    NSTimeInterval totalTime = self.current_track.duration;
+//    //NSLog(@"currentTime %f totalTime %f",currentTime,totalTime);
+//    
+//    self.current_time_txt.text = [self formattedStringForDuration:currentTime];
+//    
+//    self.duration_slider.value = (currentTime /totalTime);
+//    
+//    NSLog(@"[PlayerManager sharedInstance].currentTrack %@",[PlayerManager sharedInstance].playbackManager.currentTrack );
+//    if([PlayerManager sharedInstance].playbackManager.currentTrack == nil)
+//    {
+//        NSLog(@"track is over");
+//        trackLoaded = NO;
+//        [timer invalidate];
+//        [self playNextTrack:nil];
+//    }
     //NSLog(@"slide %f",self.duration_slider.value);
     
 }
--(void)updateTrackCount
-{
-    self.title = [NSString stringWithFormat:@"track %i of %i",self.current_track_index,self.tracks.count];
-}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     //[PlayerManager sharedInstance].currentTrack = nil;
@@ -88,47 +84,44 @@
 {
     [self.timer invalidate];
 }
--(void)playTheTrack:(SPTrack *)track
+-(void)playTheTrack:(SPTTrack *)track
 {
-      [PlayerManager sharedInstance].playbackManager.isPlaying = NO;
-
-    [[PlayerManager sharedInstance]playTrack:track with_block:^(BOOL isReady) {
-        if(isReady)
-        {
-            trackLoaded = YES;
-            [self updateTrackCount];
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                          target:self
-                                                        selector:@selector(updateTime:)
-                                                        userInfo:nil
-                                                         repeats:YES];
-            
-            self.duration_slider.value = 0;
-
-            
-            self.current_track = track;
-            [self.play_btn setTitle:@"Pause" forState:UIControlStateNormal];
-            
-            
-            self.duration_time_txt.text =[self formattedStringForDuration:track.duration];
-            self.artist_name_txt.text = track.album.artist.name;
-            self.song_txt.text = track.name;
-            
-            self.album_txt.text = track.album.name;
-            [[PlayerManager sharedInstance]coverForAlbum:track.album with_block:^(UIImage *image) {
-                if(image)
-                    self.coverImage.image = image;
-            }];
-        }
-    }];
+//    [PlayerManager sharedInstance].playbackManager.isPlaying = NO;
+//
+//    [[PlayerManager sharedInstance]playTrack:track with_block:^(BOOL isReady) {
+//        if(isReady)
+//        {
+//            trackLoaded = YES;
+//            self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+//                                                          target:self
+//                                                        selector:@selector(updateTime:)
+//                                                        userInfo:nil
+//                                                         repeats:YES];
+//            
+//            self.duration_slider.value = 0;
+//
+//            
+//            self.current_track = track;
+//            [self.play_btn setTitle:@"Pause" forState:UIControlStateNormal];
+//            
+//            
+//            self.duration_time_txt.text =[self formattedStringForDuration:track.duration];
+//            self.artist_name_txt.text = track.album.artist.name;
+//            self.song_txt.text = track.name;
+//            
+//            self.album_txt.text = track.album.name;
+//            [[PlayerManager sharedInstance]coverForAlbum:track.album with_block:^(UIImage *image) {
+//                if(image)
+//                    self.coverImage.image = image;
+//            }];
+//        }
+//    }];
  }
 
 - (IBAction)scrubberChanged:(id)sender {
     
-    is_seeking = YES;
-    UISlider *slider = (UISlider *)sender;
-    NSTimeInterval currentTime = self.current_track.duration *(slider.value);
-    self.current_time_txt.text = [self formattedStringForDuration:currentTime];
+    is_seeking = YES;    
+    //self.current_time_txt.text = [self formattedStringForDuration:[[PlayerManager sharedInstance].playbackManager trackPosition]];
     
 }
 -(void)sliderTouchUpInsideAction:(id)sender
@@ -141,7 +134,7 @@
     
     [[PlayerManager sharedInstance]seekToPosition:round(totalDutation)];
     
-    self.current_time_txt.text = [self formattedStringForDuration:[[PlayerManager sharedInstance].playbackManager trackPosition]];
+    //self.current_time_txt.text = [self formattedStringForDuration:[[PlayerManager sharedInstance].playbackManager trackPosition]];
     
     is_seeking = NO;
 
@@ -149,16 +142,16 @@
 
 - (IBAction)playTrack:(id)sender
 {
-    [PlayerManager sharedInstance].playbackManager.isPlaying = ![PlayerManager sharedInstance].playbackManager.isPlaying;
-
-    if(![PlayerManager sharedInstance].playbackManager.isPlaying)
-    {
-        [self.play_btn setTitle:@"Play" forState:UIControlStateNormal];
-    }
-    else
-    {
-        [self.play_btn setTitle:@"Pause" forState:UIControlStateNormal];
-    }
+//    [PlayerManager sharedInstance].playbackManager.isPlaying = ![PlayerManager sharedInstance].playbackManager.isPlaying;
+//
+//    if(![PlayerManager sharedInstance].playbackManager.isPlaying)
+//    {
+//        [self.play_btn setTitle:@"Play" forState:UIControlStateNormal];
+//    }
+//    else
+//    {
+//        [self.play_btn setTitle:@"Pause" forState:UIControlStateNormal];
+//    }
 
 }
 
@@ -218,39 +211,29 @@
 }
 - (IBAction)saveTrack:(id)sender {
     
-    if(self.current_track)
-    {
-        
-    }
 }
 
 - (IBAction)addToPlaylist:(id)sender {
     
-    __weak PlaylistsTableViewController *playlists = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlists"];
-    
-    [playlists setAddToPlaylist:^(SPPlaylist *playlist) {
-        
-        if(playlist)
-        {
-            [playlist addItem:self.current_track atIndex:0 callback:^(NSError *error) {
-                if(!error)
-                {
-                    printf("track added!");
-                }
-                else
-                {
-                    NSLog(@"error %@",error);
-                }
-
-            }];
-        }
-        [playlists dismissViewControllerAnimated:YES completion:nil];
-
-    }];
-    
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:playlists];
-    
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+//    __weak PlaylistsTableViewController *playlists = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlists"];
+//    
+//    [playlists setAddToPlaylist:^(SPPlaylist *playlist) {
+//        
+//        [playlist addItem:self.current_track atIndex:0 callback:^(NSError *error) {
+//            if(!error)
+//            {
+//                printf("track added!");
+//            }
+//            else
+//            {
+//                NSLog(@"error %@",error);
+//            }
+//            [playlists dismissViewControllerAnimated:YES completion:nil];
+//
+//        }];
+//    }];
+//    
+//    [self.navigationController presentViewController:playlists animated:YES completion:nil];
     
 }
 - (NSString*)formattedStringForDuration:(NSTimeInterval)duration

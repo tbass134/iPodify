@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CocoaLibSpotify.h"
 
 @interface PlayerViewController : UIViewController
 {
@@ -16,13 +15,13 @@
     BOOL is_playing;
     BOOL is_seeking;
 }
-@property(nonatomic,weak)SPTrack *current_track;
+@property(nonatomic,weak)SPTTrack *current_track;
 @property(nonatomic,weak)NSTimer *timer;
 @property(nonatomic,assign)BOOL scrubbing;
 @property(nonatomic,strong)NSArray *tracks;
 @property(nonatomic,assign)int current_track_index;
-@property(nonatomic,strong)SPArtist *arist;
-@property(nonatomic,strong)SPAlbum *album;
+@property(nonatomic,strong)SPTArtist *arist;
+@property(nonatomic,strong)SPTAlbum *album;
 @property (weak, nonatomic) IBOutlet UIView *volumeView;
 
 

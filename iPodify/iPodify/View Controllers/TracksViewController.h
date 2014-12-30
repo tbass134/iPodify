@@ -7,21 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CocoaLibSpotify.h"
-#import "DNSSwipeableCell.h"
 
-@interface TracksViewController : UIViewController<DNSSwipeableCellDelegate, DNSSwipeableCellDataSource>
+@interface TracksViewController : UIViewController
 {
     NSMutableArray *tracksInPlayist;
     NSMutableArray *albumTracks;
 }
 @property (nonatomic, assign) BOOL sortTracksByArtist;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic,strong) SPArtist *artist;
-@property (nonatomic, strong) SPAlbum *album;
+@property (nonatomic,strong) SPTArtist *artist;
+@property (nonatomic, strong) SPTAlbum *album;
 @property (nonatomic, strong) NSArray *tracks;
-@property (nonatomic,strong) SPPlaylist *playlist;
-
-@property (nonatomic, strong) NSMutableArray *cellsCurrentlyEditing;
-@property (nonatomic, strong) NSMutableArray *itemTitles;
+@property (nonatomic,strong) SPTPlaylistList *playlist;
 @end

@@ -9,11 +9,6 @@
 #import "PlaylistsTableViewController.h"
 #import "PlaylistManager.h"
 #import "TracksViewController.h"
-
-
-
-
-#import "SPPlaylist+SPPlaylistOfflineExtensions.h"
 @interface PlaylistsTableViewController ()
 
 @end
@@ -32,20 +27,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[PlaylistManager sharedInstance]loadPlaylists:^(NSArray *playlists) {
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(sessionDataLoaded) name:@"successCallback" object:nil];
+}
+
+- (void)sessionDataLoaded
+{
+    [[PlaylistManager sharedInstance]loadPlaylists:^(SPTPlaylistList *playlists) {
+        NSLog(@"playlists %@",playlists);
         self.playlists = playlists;
         [self.tableView reloadData];
     }];
     
-    if(self.addToPlaylist)
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(close:)];
 }
--(void)close:(id)sender
-{
-    //just close the vc
-    self.addToPlaylist(nil);
 
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -61,7 +55,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    // Return the number of rows in the section.
-    return self.playlists.count;
+    return self.playlists.items.count;
 }
 
 
@@ -72,16 +66,8 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(saveToOffline:)];
     
     // Configure the cell...
-    SPPlaylist *playlist = self.playlists[indexPath.row];
-    NSLog(@"playlist %@",playlist.name);
-    if(playlist.name)
-        cell.textLabel.text = playlist.name;
-    else
-        cell.textLabel.text  = @"Loading..";
-    
-    //NSLog(@"image %@",playlist.image)
-    cell.imageView.image = playlist.image;
-    
+    SPTPartialPlaylist *playlist = [self.playlists.items objectAtIndex:indexPath.row];
+    cell.textLabel.text = [playlist name];
     [cell setGestureRecognizers:@[longPress]];
     
     
@@ -90,12 +76,12 @@
 -(void)saveToOffline:(id )guesture
 {
     //get cell at guesture point
-    SPPlaylist *playlist = self.playlists[1];
+    //SPTPlaylistList *playlist = self.playlists[1];
     
-    if(![playlist isMarkedForOfflinePlayback])
-        [playlist setMarkedForOfflinePlayback:YES];
-
-    NSLog(@"offline %@",[playlist offlineStatusString]);
+//    if(![playlist isMarkedForOfflinePlayback])
+//        [playlist setMarkedForOfflinePlayback:YES];
+//
+//    NSLog(@"offline %@",[playlist offlineStatusString]);
    
 }
 
@@ -145,7 +131,7 @@
     if(self.addToPlaylist)
     {
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        SPPlaylist *playlist = self.playlists[path.row];
+        SPTPlaylistList *playlist = self.playlists.items[path.row];
         self.addToPlaylist(playlist);
     }
     else
@@ -170,7 +156,7 @@
     if([segue.identifier isEqualToString:@"Album_Tracks"])
     {
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        SPPlaylist *playlist = self.playlists[path.row];
+        SPTPlaylistList *playlist = self.playlists.items[path.row];
         TracksViewController *tracks = segue.destinationViewController;
         tracks.album = nil;
         tracks.artist = nil;

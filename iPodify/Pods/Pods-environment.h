@@ -12,12 +12,6 @@
 #define COCOAPODS_VERSION_MINOR_CocoaLibSpotify 4
 #define COCOAPODS_VERSION_PATCH_CocoaLibSpotify 5
 
-// DNSSwipeableTableCell
-#define COCOAPODS_POD_AVAILABLE_DNSSwipeableTableCell
-#define COCOAPODS_VERSION_MAJOR_DNSSwipeableTableCell 0
-#define COCOAPODS_VERSION_MINOR_DNSSwipeableTableCell 0
-#define COCOAPODS_VERSION_PATCH_DNSSwipeableTableCell 1
-
 // libspotify
 #define COCOAPODS_POD_AVAILABLE_libspotify
 #define COCOAPODS_VERSION_MAJOR_libspotify 12

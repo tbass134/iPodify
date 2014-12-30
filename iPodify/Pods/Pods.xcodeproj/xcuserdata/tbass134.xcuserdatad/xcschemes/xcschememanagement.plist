@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-DNSSwipeableTableCell.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-libspotify.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1089BF21C1BA46CA8DA6126F</key>
+		<key>0823AAA3F1554D7DAA4ACA9B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>11F9390568304638A0890B96</key>
+		<key>32847DBC9CE44F40A43CDC3F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E26AA1D2F2748B2A669A03F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD62C8E32BD54C7FA1BFB044</key>
+		<key>8356F4693217481FAD3AAA63</key>
 		<dict>
 			<key>primary</key>
 			<true/>
