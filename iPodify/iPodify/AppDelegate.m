@@ -34,17 +34,18 @@
     
     NSString *swapUrl = @kTokenSwapServiceURL;
     NSURL *loginURL;
+    
     if (swapUrl == nil || [swapUrl isEqualToString:@""]) {
         // If we don't have a token exchange service, we need to request the token response type.
         loginURL = [auth loginURLForClientId:@kClientId
                          declaredRedirectURL:[NSURL URLWithString:@kCallbackURL]
-                                      scopes:@[SPTAuthStreamingScope]
+                                      scopes:@[SPTAuthStreamingScope,SPTAuthPlaylistReadPrivateScope]
                             withResponseType:@"token"];
     }
     else {
         loginURL = [auth loginURLForClientId:@kClientId
                          declaredRedirectURL:[NSURL URLWithString:@kCallbackURL]
-                                      scopes:@[SPTAuthStreamingScope]];
+                                      scopes:@[SPTAuthStreamingScope,SPTAuthPlaylistReadPrivateScope]];
         
     }
     double delayInSeconds = 0.1;
@@ -75,7 +76,7 @@
 {
     id sessionData = [[NSUserDefaults standardUserDefaults] objectForKey:@kSessionUserDefaultsKey];
     SPTSession *session = sessionData ? [NSKeyedUnarchiver unarchiveObjectWithData:sessionData] : nil;
-    
+
     NSString *refreshUrl = @kTokenRefreshServiceURL;
     
     if (session) {

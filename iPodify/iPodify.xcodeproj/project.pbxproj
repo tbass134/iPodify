@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A49E8C01A51C67800C87FB0 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A49E8BF1A51C67800C87FB0 /* Spotify.framework */; };
+		45BADA941A532ECA00FD2260 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BADA931A532ECA00FD2260 /* Spotify.framework */; };
+		45E111981A532FBE00CA9B4E /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BADA931A532ECA00FD2260 /* Spotify.framework */; };
+		45E1119B1A53371300CA9B4E /* TracksCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E1119A1A53371300CA9B4E /* TracksCollectionViewController.m */; };
+		45E1119E1A53539F00CA9B4E /* TrackCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E1119D1A53539F00CA9B4E /* TrackCollectionViewCell.m */; };
 		9A49E8C21A51C6A000C87FB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A49E8C11A51C6A000C87FB0 /* AVFoundation.framework */; };
 		9A4F4B6F1A5322BE00415035 /* PlaylistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F4B6E1A5322BE00415035 /* PlaylistCollectionViewCell.m */; };
 		9A4F4B751A53290000415035 /* PlaylistsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F4B741A53290000415035 /* PlaylistsCollectionViewController.m */; };
@@ -26,8 +29,6 @@
 		9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AB718F5715C002ED121 /* PlaylistManager.m */; };
 		9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABB18F57168002ED121 /* MainViewController.m */; };
 		9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABD18F57168002ED121 /* PlayerViewController.m */; };
-		9AAD3AC618F57168002ED121 /* PlaylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABF18F57168002ED121 /* PlaylistsTableViewController.m */; };
-		9AAD3AC718F57168002ED121 /* PlayListTracksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC118F57168002ED121 /* PlayListTracksTableViewController.m */; };
 		9AAD3AC818F57168002ED121 /* TracksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC318F57168002ED121 /* TracksViewController.m */; };
 		9AAD3ACA18F57184002ED121 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */; };
 		9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ACD18F57250002ED121 /* ArtistViewController.m */; };
@@ -44,7 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9A49E8BF1A51C67800C87FB0 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
+		45BADA931A532ECA00FD2260 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
+		45E111991A53371300CA9B4E /* TracksCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TracksCollectionViewController.h; path = "View Controllers/TracksCollectionViewController.h"; sourceTree = "<group>"; };
+		45E1119A1A53371300CA9B4E /* TracksCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TracksCollectionViewController.m; path = "View Controllers/TracksCollectionViewController.m"; sourceTree = "<group>"; };
+		45E1119C1A53539F00CA9B4E /* TrackCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackCollectionViewCell.h; path = Cells/TrackCollectionViewCell.h; sourceTree = "<group>"; };
+		45E1119D1A53539F00CA9B4E /* TrackCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackCollectionViewCell.m; path = Cells/TrackCollectionViewCell.m; sourceTree = "<group>"; };
 		9A49E8C11A51C6A000C87FB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9A4F4B6B1A530C0500415035 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		9A4F4B6D1A5322BE00415035 /* PlaylistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistCollectionViewCell.h; path = Cells/PlaylistCollectionViewCell.h; sourceTree = "<group>"; };
@@ -74,10 +79,6 @@
 		9AAD3ABB18F57168002ED121 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = "View Controllers/MainViewController.m"; sourceTree = "<group>"; };
 		9AAD3ABC18F57168002ED121 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerViewController.h; path = "View Controllers/PlayerViewController.h"; sourceTree = "<group>"; };
 		9AAD3ABD18F57168002ED121 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerViewController.m; path = "View Controllers/PlayerViewController.m"; sourceTree = "<group>"; };
-		9AAD3ABE18F57168002ED121 /* PlaylistsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistsTableViewController.h; path = "View Controllers/PlaylistsTableViewController.h"; sourceTree = "<group>"; };
-		9AAD3ABF18F57168002ED121 /* PlaylistsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaylistsTableViewController.m; path = "View Controllers/PlaylistsTableViewController.m"; sourceTree = "<group>"; };
-		9AAD3AC018F57168002ED121 /* PlayListTracksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayListTracksTableViewController.h; path = "View Controllers/PlayListTracksTableViewController.h"; sourceTree = "<group>"; };
-		9AAD3AC118F57168002ED121 /* PlayListTracksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayListTracksTableViewController.m; path = "View Controllers/PlayListTracksTableViewController.m"; sourceTree = "<group>"; };
 		9AAD3AC218F57168002ED121 /* TracksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TracksViewController.h; path = "View Controllers/TracksViewController.h"; sourceTree = "<group>"; };
 		9AAD3AC318F57168002ED121 /* TracksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TracksViewController.m; path = "View Controllers/TracksViewController.m"; sourceTree = "<group>"; };
 		9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPhone.storyboard"; sourceTree = "<group>"; };
@@ -93,8 +94,8 @@
 				9A49E8C21A51C6A000C87FB0 /* AVFoundation.framework in Frameworks */,
 				9AAD3A7318F56F6C002ED121 /* CoreGraphics.framework in Frameworks */,
 				9AAD3A7518F56F6C002ED121 /* UIKit.framework in Frameworks */,
+				45BADA941A532ECA00FD2260 /* Spotify.framework in Frameworks */,
 				9AAD3A7118F56F6C002ED121 /* Foundation.framework in Frameworks */,
-				9A49E8C01A51C67800C87FB0 /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AAD3A8C18F56F6D002ED121 /* UIKit.framework in Frameworks */,
+				45E111981A532FBE00CA9B4E /* Spotify.framework in Frameworks */,
 				9AAD3A8B18F56F6D002ED121 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +117,8 @@
 			children = (
 				9A4F4B6D1A5322BE00415035 /* PlaylistCollectionViewCell.h */,
 				9A4F4B6E1A5322BE00415035 /* PlaylistCollectionViewCell.m */,
+				45E1119C1A53539F00CA9B4E /* TrackCollectionViewCell.h */,
+				45E1119D1A53539F00CA9B4E /* TrackCollectionViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -142,8 +146,8 @@
 		9AAD3A6F18F56F6C002ED121 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45BADA931A532ECA00FD2260 /* Spotify.framework */,
 				9A49E8C11A51C6A000C87FB0 /* AVFoundation.framework */,
-				9A49E8BF1A51C67800C87FB0 /* Spotify.framework */,
 				9AAD3A7018F56F6C002ED121 /* Foundation.framework */,
 				9AAD3A7218F56F6C002ED121 /* CoreGraphics.framework */,
 				9AAD3A7418F56F6C002ED121 /* UIKit.framework */,
@@ -205,14 +209,12 @@
 				9AAD3ABB18F57168002ED121 /* MainViewController.m */,
 				9AAD3ABC18F57168002ED121 /* PlayerViewController.h */,
 				9AAD3ABD18F57168002ED121 /* PlayerViewController.m */,
-				9AAD3ABE18F57168002ED121 /* PlaylistsTableViewController.h */,
-				9AAD3ABF18F57168002ED121 /* PlaylistsTableViewController.m */,
-				9AAD3AC018F57168002ED121 /* PlayListTracksTableViewController.h */,
-				9AAD3AC118F57168002ED121 /* PlayListTracksTableViewController.m */,
 				9AAD3AC218F57168002ED121 /* TracksViewController.h */,
 				9AAD3AC318F57168002ED121 /* TracksViewController.m */,
 				9A4F4B731A53290000415035 /* PlaylistsCollectionViewController.h */,
 				9A4F4B741A53290000415035 /* PlaylistsCollectionViewController.m */,
+				45E111991A53371300CA9B4E /* TracksCollectionViewController.h */,
+				45E1119A1A53371300CA9B4E /* TracksCollectionViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -334,14 +336,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45E1119E1A53539F00CA9B4E /* TrackCollectionViewCell.m in Sources */,
 				9A4F4B6F1A5322BE00415035 /* PlaylistCollectionViewCell.m in Sources */,
 				9AAD3AB818F5715C002ED121 /* PlayerManager.m in Sources */,
 				9A4F4B751A53290000415035 /* PlaylistsCollectionViewController.m in Sources */,
-				9AAD3AC718F57168002ED121 /* PlayListTracksTableViewController.m in Sources */,
+				45E1119B1A53371300CA9B4E /* TracksCollectionViewController.m in Sources */,
 				9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */,
 				9AAD3A8118F56F6C002ED121 /* AppDelegate.m in Sources */,
 				9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */,
-				9AAD3AC618F57168002ED121 /* PlaylistsTableViewController.m in Sources */,
 				9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */,
 				9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */,
 				9AAD3AC818F57168002ED121 /* TracksViewController.m in Sources */,
@@ -503,6 +505,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iPodify/iPodify-Prefix.pch";
@@ -525,6 +528,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iPodify/iPodify-Prefix.pch";

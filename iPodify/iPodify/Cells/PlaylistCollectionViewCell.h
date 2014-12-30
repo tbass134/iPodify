@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PlaylistCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) UIImageView *coverImage;
+@property (weak, nonatomic) UILabel *playlistName;
 
-@property (nonatomic,strong)UIImageView *playlistCoverImage;
-@property (nonatomic,strong) UILabel *playlistName;
 @end

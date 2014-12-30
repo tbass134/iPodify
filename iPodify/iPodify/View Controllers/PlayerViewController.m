@@ -8,7 +8,6 @@
 
 #import "PlayerViewController.h"
 #import "PlayerManager.h"
-#import "PlaylistsTableViewController.h"
 #import <MediaPlayer/MPVolumeView.h>
 @interface PlayerViewController ()
 
