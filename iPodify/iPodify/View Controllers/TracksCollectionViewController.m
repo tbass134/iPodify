@@ -31,8 +31,7 @@ static NSString * const reuseIdentifier = @"Cell";
         _playlistSnapshot = playlistSnapshot;
         //NSLog(@"playlistSnapshot %@",_playlistSnapshot.firstTrackPage);
         SPTListPage *page = _playlistSnapshot.firstTrackPage;
-        
-        [allTracks addObjectsFromArray:page.tracksForPlayback];
+        //[allTracks addObjectsFromArray:page.tracksForPlayback];
         [self loadTracksForPage:page];
     }];
     [super viewDidLoad];
@@ -41,34 +40,44 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     NSLog(@"page.tracksForPlayback.count %lu page.totalListLength %lu", (unsigned long)page.tracksForPlayback.count,(unsigned long)page.totalListLength);
     if (allTracks.count < page.totalListLength) {
-        
+        [allTracks addObjectsFromArray:page.tracksForPlayback];
         [_playlistSnapshot.firstTrackPage requestNextPageWithSession:[PlayerManager sharedInstance].session  callback:^(NSError *error, SPTListPage *page) {
-            
-            [allTracks addObjectsFromArray:page.tracksForPlayback];
-            [self loadTracksForPage:page];
+                [self loadTracksForPage:page];
         }];
     } else
     {
         //NSLog(@"done loading tracks %@",allTracks);
-        [self sortTracksByAlbum];
+        [self sortTracksByArtist];
         [self.collectionView reloadData];
     }
 }
 
-- (void)sortTracksByAlbum
+- (void)sortTracksByArtist
 {
-        for(SPTPartialTrack *track in allTracks)
-        {
-            SPTArtist *artist = [track.artists firstObject];
-            NSLog(@"artist %@",artist);
-            
-            if (!sortedTracks[artist.name]) {
-                [sortedTracks setValue:[NSNull null] forKey:artist.name];
-            }
-        }
-    NSLog(@"sortedTracks %@",sortedTracks);
     
+    NSArray* ids = [allTracks valueForKeyPath:@"artists.identifier"];
+    NSSet* uniqueIDs = [NSSet setWithArray:ids];
+    for (NSArray* anIDs in [uniqueIDs allObjects])
+    {
+        NSString *anID =[anIDs firstObject];
+        [sortedTracks setObject:[self tracksForArtistID:anID] forKey:anID];
+    }
+    
+    NSLog(@"result %@",sortedTracks);
 }
+- (NSArray *)tracksForArtistID:(NSString *)artistID
+{
+    NSMutableArray *tracks = [NSMutableArray new];
+    
+    for (SPTPlaylistTrack *track in allTracks) {
+        SPTPartialArtist *artist = [track.artists firstObject];
+        if ([artist.identifier isEqualToString:artistID]) {
+            [tracks addObject:track];
+        }
+    }
+    return tracks;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -87,22 +96,24 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return sortedTracks.count;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return allTracks.count;
+    NSArray *keys = [sortedTracks allKeys];
+    return [sortedTracks[keys[section]] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TrackCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    SPTPartialTrack *track = [allTracks objectAtIndex:indexPath.row];
-    //NSLog(@"track.name; %@",track.name);
-    cell.trackName.text = track.name;
-    cell.trackArtist.text = [track.artists componentsJoinedByString:@","];
+    NSArray *keys = [sortedTracks allKeys];
+    NSArray *values = [sortedTracks[keys[indexPath.section]]sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     
-    // Configure the cell
+    SPTPartialTrack *track = [values objectAtIndex:indexPath.row];
+    cell.trackName.text = track.name;
+    SPTPartialArtist *artist = [track.artists firstObject];
+    cell.trackArtist.text = artist.name;
     
     return cell;
 }
