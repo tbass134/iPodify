@@ -21,7 +21,7 @@
 //@property(nonatomic,strong)SPTrack *currentTrack;
 -(void)initPlayer;
 - (void)loginWithSession:(SPTSession *)session usingCallback:(void (^)(BOOL success))block;
--(BOOL )playTrack:(SPTTrack *)track with_block:(void (^)(BOOL isReady))block;
+-(void)playTrack:(SPTPartialTrack *)track with_block:(void (^)(SPTTrack *track))block;
 -(void)starTrack:(SPTTrack *)track;
 
 -(void)coverForAlbum:(SPTAlbum *)album with_block:(void (^)(UIImage *image))block;

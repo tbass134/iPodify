@@ -28,11 +28,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)sessionDataLoaded
 {
-    [[PlaylistManager sharedInstance]loadPlaylists:^(SPTPlaylistList *playlists) {
-        NSLog(@"playlists %@",playlists);
+    //[self loadPlaylistsFromPlaylist:nil];
+    
+    [[PlaylistManager sharedInstance]loadPlaylists:^(NSError *error, NSArray *playlists) {
         self.playlists = playlists;
         [self.collectionView reloadData];
     }];
+    
+}
+- (void)loadPlaylistsFromPlaylist: (SPTPartialPlaylist *)playlist
+{
     
 }
 - (void)didReceiveMemoryWarning {
@@ -49,7 +54,7 @@ static NSString * const reuseIdentifier = @"Cell";
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"showTracks"]) {
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
-        SPTPartialPlaylist *playlist = [self.playlists.items objectAtIndex:indexPath.row];
+        SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
         TracksCollectionViewController *controller = segue.destinationViewController;
         controller.playlist = playlist;
 
@@ -68,7 +73,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.playlists.items.count;
+    return self.playlists.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,7 +81,7 @@ static NSString * const reuseIdentifier = @"Cell";
     PlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.backgroundColor = [UIColor greenColor];
     
-    SPTPartialPlaylist *playlist = [self.playlists.items objectAtIndex:indexPath.row];
+    SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
     cell.playlistName.text = playlist.name;
     //cell.playlistCoverImage.image = playlist
     
@@ -88,11 +93,6 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"showTracks" sender:nil];
-
-    SPTPartialPlaylist *playlist = [self.playlists.items objectAtIndex:indexPath.row];
-      
-
-
 }
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking

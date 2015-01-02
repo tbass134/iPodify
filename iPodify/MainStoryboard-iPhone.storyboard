@@ -84,7 +84,6 @@
                     <navigationItem key="navigationItem" id="JvH-3p-jcx"/>
                     <connections>
                         <outlet property="tableView" destination="0gT-GT-VUD" id="hSb-U5-Mdn"/>
-                        <segue destination="Xsd-pL-PO8" kind="push" identifier="PlayTrack" id="8ln-gI-hAi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ce1-W7-RQj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -237,7 +236,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ny-L4-KwS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2124" y="204"/>
+            <point key="canvasLocation" x="1554" y="-407"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="XOY-gF-E1Q">
@@ -323,7 +322,7 @@
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="V1B-N3-ipx">
                             <size key="itemSize" width="285" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="50" height="50"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
@@ -356,16 +355,24 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="wON-Fh-hHc">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="4Om-ef-FvT" id="Yqv-Mc-mdC"/>
                             <outlet property="delegate" destination="4Om-ef-FvT" id="f14-2u-Kjw"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Bbz-CH-NCh"/>
+                    <connections>
+                        <segue destination="Xsd-pL-PO8" kind="push" identifier="playTrack" id="gu2-mi-G09"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vu3-cl-J6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="708" y="-556"/>
+            <point key="canvasLocation" x="837" y="-542"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kXi-8B-ciW">

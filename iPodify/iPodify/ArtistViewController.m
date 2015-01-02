@@ -7,7 +7,6 @@
 //
 
 #import "ArtistViewController.h"
-#import "TracksViewController.h"
 
 @interface ArtistViewController ()
 
@@ -93,11 +92,7 @@
     if([segue.identifier isEqualToString:@"Album_Tracks"])
     {
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        SPTAlbum *album = [self.albums objectAtIndex:path.row];
-        TracksViewController *tracks = segue.destinationViewController;
-        tracks.album = album;
-        tracks.artist = self.artist;
-        
+               
     }
     //    DetailObject *detail = [self detailForIndexPath:path];
     //    [segue.destinationViewController setDetail:detail];

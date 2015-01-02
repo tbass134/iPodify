@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PlaylistsCollectionViewController : UICollectionViewController
-@property(nonatomic,strong)SPTPlaylistList *playlists;
+@property(nonatomic,strong)NSArray *playlists;
 
 @end

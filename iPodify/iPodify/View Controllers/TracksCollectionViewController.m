@@ -8,6 +8,7 @@
 
 #import "TracksCollectionViewController.h"
 #import "TrackCollectionViewCell.h"
+#import "PlayerViewController.h"
 #import "PlayerManager.h"
 
 @interface TracksCollectionViewController ()
@@ -29,9 +30,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     [SPTRequest requestItemFromPartialObject:self.playlist withSession:[PlayerManager sharedInstance].session callback:^(NSError *error, SPTPlaylistSnapshot *playlistSnapshot) {
         _playlistSnapshot = playlistSnapshot;
-        //NSLog(@"playlistSnapshot %@",_playlistSnapshot.firstTrackPage);
         SPTListPage *page = _playlistSnapshot.firstTrackPage;
-        //[allTracks addObjectsFromArray:page.tracksForPlayback];
         [self loadTracksForPage:page];
     }];
     [super viewDidLoad];
@@ -47,6 +46,7 @@ static NSString * const reuseIdentifier = @"Cell";
     } else
     {
         //NSLog(@"done loading tracks %@",allTracks);
+        //sort tracks by arist, then song
         [self sortTracksByArtist];
         [self.collectionView reloadData];
     }
@@ -54,7 +54,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)sortTracksByArtist
 {
-    
     NSArray* ids = [allTracks valueForKeyPath:@"artists.identifier"];
     NSSet* uniqueIDs = [NSSet setWithArray:ids];
     for (NSArray* anIDs in [uniqueIDs allObjects])
@@ -83,15 +82,22 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"playTrack"]) {
+        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+        NSArray *keys = [sortedTracks allKeys];
+        NSArray *values = [sortedTracks[keys[indexPath.section]]sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+        
+        SPTPartialTrack *track = [values objectAtIndex:indexPath.row];
+        PlayerViewController *controller = segue.destinationViewController;
+        controller.tracks = values;
+        controller.current_track_index = indexPath.row;
+        controller.current_track = track;
+    }
 }
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -119,6 +125,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark <UICollectionViewDelegate>
+
+#pragma mark <UICollectionViewDelegate>
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"playTrack" sender:nil];
+}
 
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking

@@ -29,7 +29,6 @@
 		9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AB718F5715C002ED121 /* PlaylistManager.m */; };
 		9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABB18F57168002ED121 /* MainViewController.m */; };
 		9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABD18F57168002ED121 /* PlayerViewController.m */; };
-		9AAD3AC818F57168002ED121 /* TracksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC318F57168002ED121 /* TracksViewController.m */; };
 		9AAD3ACA18F57184002ED121 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */; };
 		9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ACD18F57250002ED121 /* ArtistViewController.m */; };
 /* End PBXBuildFile section */
@@ -79,8 +78,6 @@
 		9AAD3ABB18F57168002ED121 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = "View Controllers/MainViewController.m"; sourceTree = "<group>"; };
 		9AAD3ABC18F57168002ED121 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerViewController.h; path = "View Controllers/PlayerViewController.h"; sourceTree = "<group>"; };
 		9AAD3ABD18F57168002ED121 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerViewController.m; path = "View Controllers/PlayerViewController.m"; sourceTree = "<group>"; };
-		9AAD3AC218F57168002ED121 /* TracksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TracksViewController.h; path = "View Controllers/TracksViewController.h"; sourceTree = "<group>"; };
-		9AAD3AC318F57168002ED121 /* TracksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TracksViewController.m; path = "View Controllers/TracksViewController.m"; sourceTree = "<group>"; };
 		9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPhone.storyboard"; sourceTree = "<group>"; };
 		9AAD3ACC18F57250002ED121 /* ArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistViewController.h; sourceTree = "<group>"; };
 		9AAD3ACD18F57250002ED121 /* ArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistViewController.m; sourceTree = "<group>"; };
@@ -209,8 +206,6 @@
 				9AAD3ABB18F57168002ED121 /* MainViewController.m */,
 				9AAD3ABC18F57168002ED121 /* PlayerViewController.h */,
 				9AAD3ABD18F57168002ED121 /* PlayerViewController.m */,
-				9AAD3AC218F57168002ED121 /* TracksViewController.h */,
-				9AAD3AC318F57168002ED121 /* TracksViewController.m */,
 				9A4F4B731A53290000415035 /* PlaylistsCollectionViewController.h */,
 				9A4F4B741A53290000415035 /* PlaylistsCollectionViewController.m */,
 				45E111991A53371300CA9B4E /* TracksCollectionViewController.h */,
@@ -346,7 +341,6 @@
 				9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */,
 				9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */,
 				9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */,
-				9AAD3AC818F57168002ED121 /* TracksViewController.m in Sources */,
 				9AAD3A7D18F56F6C002ED121 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

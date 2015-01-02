@@ -83,8 +83,16 @@
 {
     [self.timer invalidate];
 }
--(void)playTheTrack:(SPTTrack *)track
+-(void)playTheTrack:(SPTPartialTrack *)track
 {
+    [[PlayerManager sharedInstance]playTrack:track with_block:^(SPTTrack *track) {
+        
+        [[PlayerManager sharedInstance]coverForAlbum:track.album with_block:^(UIImage *image) {
+            self.coverImage.image = image;
+        }];
+    }];
+    
+    
 //    [PlayerManager sharedInstance].playbackManager.isPlaying = NO;
 //
 //    [[PlayerManager sharedInstance]playTrack:track with_block:^(BOOL isReady) {

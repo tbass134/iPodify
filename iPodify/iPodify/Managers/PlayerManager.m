@@ -62,52 +62,61 @@
     return _sharedInstance;
     
 }
--(BOOL )playTrack:(SPTTrack *)track with_block:(void (^)(BOOL isReady))block;
+
+-(void)playTrack:(SPTPartialTrack *)track with_block:(void (^)(SPTTrack *track))block
 {
-    __block BOOL is_playing = NO;
-//   [[SPSession sharedSession] trackForURL:track.spotifyURL callback:^(SPTrack *track) {
-//            
-//            if (track != nil) {
-//                
-//                [SPAsyncLoading waitUntilLoaded:track timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
-//                    [self.playbackManager playTrack:track callback:^(NSError *error) {
-//                        
-//                        if (error) {
-//                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Play Track"
-//                                                                            message:[error localizedDescription]
-//                                                                           delegate:nil
-//                                                                  cancelButtonTitle:@"OK"
-//                                                                  otherButtonTitles:nil];
-//                            [alert show];
-//                            is_playing = NO;
-//                            
-//                        } else {
-//                            self.playbackManager.isPlaying = YES;
-//                            NSLog(@"offline %i",track.offlineStatus);
-//                            if(block)
-//                                block(YES);
-//                            
-//                            //self.currentTrack = track;
-//                            [self updateLockScreen];
-//                            is_playing = YES;
-//                        }
-//                        
-//                    }];
-//                }];
-//            }
-//        }];
-//    
-    
-    return is_playing;
+    [SPTRequest requestItemAtURI:track.uri
+                     withSession:self.session
+                        callback:^(NSError *error, id object) {
+                            
+                            if (error != nil) {
+                                NSLog(@"*** Album lookup got error %@", error);
+                                return;
+                            }
+                            
+                            [self.player playTrackProvider:(id <SPTTrackProvider>)object callback:nil];
+                            
+                            [SPTRequest requestItemFromPartialObject:track withSession:self.session callback:^(NSError *error, SPTTrack *track) {
+                                if (error == nil) {
+                                    block(track);
+                                }
+                            }];
+                            
+                        }];
 }
--(void)coverForAlbum:(SPTAlbum *)album with_block:(void (^)(UIImage *image))block;
+
+-(void)coverForAlbum:(SPTPartialAlbum *)album with_block:(void (^)(UIImage *image))block;
 {
-//    [SPAsyncLoading waitUntilLoaded:album.cover timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
-//        
-//        if(block)
-//            block(album.cover.image);
-//    }];
-    
+    [SPTAlbum albumWithURI:album.uri
+                   session:self.session
+                  callback:^(NSError *error, SPTAlbum *album) {
+                      
+                      NSURL *imageURL = album.largestCover.imageURL;
+                      if (imageURL == nil) {
+                          NSLog(@"Album %@ doesn't have any images!", album);
+                          block(nil);
+                          return;
+                      }
+                      
+                      // Pop over to a background queue to load the image over the network.
+                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                          NSError *error = nil;
+                          UIImage *image = nil;
+                          NSData *imageData = [NSData dataWithContentsOfURL:imageURL options:0 error:&error];
+                          
+                          if (imageData != nil) {
+                              image = [UIImage imageWithData:imageData];
+                          }
+                          
+                          // …and back to the main queue to display the image.
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              block(image);
+                              if (image == nil) {
+                                  NSLog(@"Couldn't load cover image with error: %@", error);
+                              }
+                          });
+                      });
+                  }];
 }
 
 

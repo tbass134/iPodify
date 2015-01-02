@@ -21,45 +21,39 @@
     });
     return _sharedInstance;
 }
--(void)loadPlaylists:(void (^)(SPTPlaylistList *playlists))block
+
+- (void)loadPlaylists:(void (^)(NSError *, NSArray *))callback
 {
     [SPTRequest playlistsForUserInSession:[PlayerManager sharedInstance].session callback:^(NSError *error, id object) {
-        NSLog(@"object %@",object);
-        SPTPlaylistList *playlists = (SPTPlaylistList *)object;
-        NSLog(@"playlists %@",playlists.items);
-        block(playlists);
-
+        [self didFetchListPageForSession:[PlayerManager sharedInstance].session finalCallback:callback error:error object:object allPlaylists:[NSMutableArray array]];
     }];
-     
-
-//    [SPAsyncLoading waitUntilLoaded:[SPSession sharedSession].userPlaylists timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedContainers, NSArray *notLoadedContainers)
-//     {
-//         // User playlists are loaded — wait for playlists to load their metadata.
-//         
-//         NSMutableArray *playlists = [NSMutableArray array];
-//         
-//         [playlists addObject:[SPSession sharedSession].starredPlaylist];
-//         [playlists addObject:[SPSession sharedSession].inboxPlaylist];
-//         [playlists addObjectsFromArray:[SPSession sharedSession].userPlaylists.flattenedPlaylists];
-//         
-//         [SPAsyncLoading waitUntilLoaded:playlists timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *loadedPlaylists, NSArray *notLoadedPlaylists)
-//          {
-//              
-//              self.playlists = loadedPlaylists;
-//              //[self loadAllSongs];
-//              
-//                // All of our playlists have loaded their metadata — wait for all tracks to load their metadata.
-//              //self.playlists = [[NSMutableArray alloc] initWithArray:loadedPlaylists];
-//              //NSLog(@"arrPlaylist %@",self.playlists);
-//              //NSLog(@"notLoadedPlaylists %@",notLoadedPlaylists);
-//              if(block)
-//              {
-//                  block(loadedPlaylists);
-//              }
-//              
-//          }];
-//     }];
 }
+
+- (void)didFetchListPageForSession:(SPTSession *)session finalCallback:(void (^)(NSError*, NSArray*))finalCallback error:(NSError *)error object:(id)object allPlaylists:(NSMutableArray *)allPlaylists
+{
+    if (error != nil) {
+        finalCallback(error, nil);
+    } else {
+            SPTPlaylistList *playlistList = (SPTPlaylistList *)object;
+            
+            for (SPTPartialPlaylist *playlist in playlistList.items) {
+                [allPlaylists addObject:playlist];
+            }
+            if (playlistList.hasNextPage) {
+                [playlistList requestNextPageWithSession:session callback:^(NSError *error, id object) {
+                    [self didFetchListPageForSession:session
+                                                           finalCallback:finalCallback
+                                                                   error:error
+                                                                  object:object
+                                                            allPlaylists:allPlaylists];
+                }];
+            } else {
+                finalCallback(nil, [allPlaylists copy]);
+            }
+        }
+}
+
+
 -(void)loadAllSongs
 {
     //TODO build Dictionary sorted by artists-albums-tracks

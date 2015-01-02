@@ -15,11 +15,11 @@
     BOOL is_playing;
     BOOL is_seeking;
 }
-@property(nonatomic,weak)SPTTrack *current_track;
+@property(nonatomic,weak)SPTPartialTrack *current_track;
 @property(nonatomic,weak)NSTimer *timer;
 @property(nonatomic,assign)BOOL scrubbing;
 @property(nonatomic,strong)NSArray *tracks;
-@property(nonatomic,assign)int current_track_index;
+@property(nonatomic,assign)NSInteger current_track_index;
 @property(nonatomic,strong)SPTArtist *arist;
 @property(nonatomic,strong)SPTAlbum *album;
 @property (weak, nonatomic) IBOutlet UIView *volumeView;
