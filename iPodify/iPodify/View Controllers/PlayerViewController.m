@@ -71,7 +71,7 @@
     //start a timer to update the time label display
     
     self.current_track =self.tracks[self.current_track_index];
-    [self playTheTrack:self.current_track];
+    //[self playTheTrack:self.current_track];
     
     [[PlayerManager sharedInstance]setTrackPaused:^{
         

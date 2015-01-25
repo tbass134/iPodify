@@ -11,6 +11,7 @@
 		45E111981A532FBE00CA9B4E /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BADA931A532ECA00FD2260 /* Spotify.framework */; };
 		45E1119B1A53371300CA9B4E /* TracksCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E1119A1A53371300CA9B4E /* TracksCollectionViewController.m */; };
 		45E1119E1A53539F00CA9B4E /* TrackCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E1119D1A53539F00CA9B4E /* TrackCollectionViewCell.m */; };
+		45E9D0E01A7496C900C7EF8B /* APLExpandableCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E9D0DF1A7496C900C7EF8B /* APLExpandableCollectionView.m */; };
 		9A49E8C21A51C6A000C87FB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A49E8C11A51C6A000C87FB0 /* AVFoundation.framework */; };
 		9A4F4B6F1A5322BE00415035 /* PlaylistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F4B6E1A5322BE00415035 /* PlaylistCollectionViewCell.m */; };
 		9A4F4B751A53290000415035 /* PlaylistsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F4B741A53290000415035 /* PlaylistsCollectionViewController.m */; };
@@ -52,6 +53,8 @@
 		45E1119A1A53371300CA9B4E /* TracksCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TracksCollectionViewController.m; path = "View Controllers/TracksCollectionViewController.m"; sourceTree = "<group>"; };
 		45E1119C1A53539F00CA9B4E /* TrackCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackCollectionViewCell.h; path = Cells/TrackCollectionViewCell.h; sourceTree = "<group>"; };
 		45E1119D1A53539F00CA9B4E /* TrackCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackCollectionViewCell.m; path = Cells/TrackCollectionViewCell.m; sourceTree = "<group>"; };
+		45E9D0DE1A7496C900C7EF8B /* APLExpandableCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLExpandableCollectionView.h; sourceTree = "<group>"; };
+		45E9D0DF1A7496C900C7EF8B /* APLExpandableCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLExpandableCollectionView.m; sourceTree = "<group>"; };
 		84F8D22812D920D15EE7AA37 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9A49E8C11A51C6A000C87FB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9A4F4B6B1A530C0500415035 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -261,10 +264,12 @@
 		EAAB65811A69DF0B00B62740 /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				45E9D0DE1A7496C900C7EF8B /* APLExpandableCollectionView.h */,
+				45E9D0DF1A7496C900C7EF8B /* APLExpandableCollectionView.m */,
+				EAAB65831A69DF2C00B62740 /* APLExpandableSectionFlowLayout.h */,
 				EAAB65821A69DF2C00B62740 /* APLExpandableSectionFlowLayout.m */,
 				EAAB65851A69E19800B62740 /* APLSectionTopToBottomFlowLayout.h */,
 				EAAB65861A69E19800B62740 /* APLSectionTopToBottomFlowLayout.m */,
-				EAAB65831A69DF2C00B62740 /* APLExpandableSectionFlowLayout.h */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				9A4F4B751A53290000415035 /* PlaylistsCollectionViewController.m in Sources */,
 				45E1119B1A53371300CA9B4E /* TracksCollectionViewController.m in Sources */,
 				9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */,
+				45E9D0E01A7496C900C7EF8B /* APLExpandableCollectionView.m in Sources */,
 				9AAD3A8118F56F6C002ED121 /* AppDelegate.m in Sources */,
 				EA23FD881A693C160006EFEC /* TrackCollectionReusableView.m in Sources */,
 				9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */,

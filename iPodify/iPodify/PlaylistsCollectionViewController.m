@@ -82,6 +82,18 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.backgroundColor = [UIColor greenColor];
     
     SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+        NSData *data0 = [NSData dataWithContentsOfURL:[[playlist.images firstObject] imageURL]];
+        UIImage *image = [UIImage imageWithData:data0];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^(void) {
+            cell.coverImage.image = image;
+        });
+    });
+    
+    
+    
     cell.playlistName.text = playlist.name;
     //cell.playlistCoverImage.image = playlist
     

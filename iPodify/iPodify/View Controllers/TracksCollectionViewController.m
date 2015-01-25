@@ -18,9 +18,6 @@
     NSMutableDictionary *sortedTracks;
     SPTPlaylistSnapshot *_playlistSnapshot;
 }
-@property (nonatomic, strong) NSMutableArray* expandedSections;
-@property (nonatomic, strong) UITapGestureRecognizer* tapGestureRecognizer;
-
 @end
 
 @implementation TracksCollectionViewController
@@ -32,13 +29,19 @@ static NSString * const reuseIdentifier = @"Cell";
     allTracks = [NSMutableArray new];
     sortedTracks = [NSMutableDictionary new];
     
+    UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+    layout.itemSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 44.);
+    layout.minimumLineSpacing = 4.;
+    layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0);
+    
+
+    
+    
     [SPTRequest requestItemFromPartialObject:self.playlist withSession:[PlayerManager sharedInstance].session callback:^(NSError *error, SPTPlaylistSnapshot *playlistSnapshot) {
         _playlistSnapshot = playlistSnapshot;
         SPTListPage *page = _playlistSnapshot.firstTrackPage;
         [self loadTracksForPage:page];
     }];
-    [self.collectionView addGestureRecognizer:self.tapGestureRecognizer];
-
     [super viewDidLoad];
 }
 - (void)loadTracksForPage:(SPTListPage *)page
@@ -66,21 +69,14 @@ static NSString * const reuseIdentifier = @"Cell";
     {
         NSString *anID =[anIDs firstObject];
         [sortedTracks setObject:[self tracksForArtistID:anID] forKey:anID];
+        //[sortedTracks setObject:[self tracksForArtistID:anID] forKey:anID];
     }
     
     NSLog(@"result %@",sortedTracks);
 }
 - (NSArray *)tracksForArtistID:(NSString *)artistID
 {
-    NSMutableArray *tracks = [NSMutableArray new];
-    
-    for (SPTPlaylistTrack *track in allTracks) {
-        SPTPartialArtist *artist = [track.artists firstObject];
-        if ([artist.identifier isEqualToString:artistID]) {
-            [tracks addObject:track];
-        }
-    }
-    return tracks;
+    return [allTracks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"artists.identifier contains[cd] %@",artistID]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,13 +91,10 @@ static NSString * const reuseIdentifier = @"Cell";
     return sortedTracks.count;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSArray *keys = [sortedTracks allKeys];
-    NSInteger numberOfItemsInSection =  [sortedTracks[keys[section]] count];
-
-    return [self isExpandedSection:section] ? numberOfItemsInSection : 0;
-
+    NSInteger numberOfItemsInSection =  [sortedTracks[keys[section]] count] + 1;
+    return numberOfItemsInSection;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -109,26 +102,22 @@ static NSString * const reuseIdentifier = @"Cell";
     NSArray *keys = [sortedTracks allKeys];
     NSArray *values = [sortedTracks[keys[indexPath.section]]sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     
-    SPTPartialTrack *track = [values objectAtIndex:indexPath.row];
-    cell.trackName.text = track.name;
-    SPTPartialArtist *artist = [track.artists firstObject];
-    cell.trackArtist.text = artist.name;
+    if (indexPath.item == 0) {
+        NSArray *keys = [sortedTracks allKeys];
+         cell.trackName.text = keys[indexPath.section];
+        cell.indentView.hidden = YES;
+
+    }
+    else {
+        SPTPartialTrack *track = [values objectAtIndex:indexPath.row - 1];
+        cell.trackName.text = track.name;
+        SPTPartialArtist *artist = [track.artists firstObject];
+        cell.trackArtist.text = artist.name;
+        cell.indentView.hidden = NO;
+
+    }
     
     return cell;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    TrackCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
-    NSArray *keys = [sortedTracks allKeys];
-    headerView.artistNameLabel.text = keys[indexPath.section];
-    
-    
-    return headerView;
-}
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 50);
 }
 
 #pragma mark Segue
@@ -144,102 +133,12 @@ static NSString * const reuseIdentifier = @"Cell";
         NSArray *keys = [sortedTracks allKeys];
         NSArray *values = [sortedTracks[keys[indexPath.section]]sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
         
-        SPTPartialTrack *track = [values objectAtIndex:indexPath.row];
+        SPTPartialTrack *track = [values objectAtIndex:indexPath.row - 1];
         PlayerViewController *controller = segue.destinationViewController;
         controller.tracks = values;
         controller.current_track_index = indexPath.row;
         controller.current_track = track;
     }
 }
-
-#pragma mark Expand
-- (NSMutableArray *)expandedSections {
-    if (!_expandedSections) {
-        _expandedSections = [NSMutableArray array];
-        
-        NSInteger maxI = [self.collectionView.dataSource respondsToSelector:@selector(numberOfSectionsInCollectionView:)] ? [self.collectionView.dataSource numberOfSectionsInCollectionView:self.collectionView] : 0;
-        for (NSInteger i = 0; i < maxI; i++) {
-            [_expandedSections addObject:@NO];
-        }
-    }
-    return _expandedSections;
-}
-
-- (UITapGestureRecognizer *)tapGestureRecognizer {
-    if (!_tapGestureRecognizer) {
-        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-        _tapGestureRecognizer.delegate = self;
-    }
-    return _tapGestureRecognizer;
-}
-
-- (BOOL)isExpandedSection:(NSInteger)section {
-    return [self.expandedSections[section] boolValue];
-}
-
-- (void)handleTapGesture:(UITapGestureRecognizer*)sender {
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        CGPoint point = [sender locationInView:self.collectionView];
-        NSIndexPath* tappedCellPath = [NSIndexPath indexPathForItem:0 inSection:0];
-        
-        if (tappedCellPath) {
-            NSInteger tappedSection = tappedCellPath.section;
-            BOOL willOpen = ![self.expandedSections[tappedSection] boolValue];
-            NSMutableArray* indexPaths = [NSMutableArray array];
-            for (int i = )
-            for (NSInteger i = 0, maxI = [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:tappedSection]; i < maxI; i++) {
-                [indexPaths addObject:[NSIndexPath indexPathForItem:i inSection:tappedSection]];
-            }
-            [self.collectionView performBatchUpdates:^{
-                if (willOpen) {
-                    [self.collectionView insertItemsAtIndexPaths:indexPaths];
-                } else {
-                    [self.collectionView deleteItemsAtIndexPaths:indexPaths];
-                }
-                self.expandedSections[tappedSection] = @(willOpen);
-            } completion:nil];
-            
-            if (willOpen) {
-                NSIndexPath* lastItemIndexPath = [NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:tappedCellPath.section] - 1 inSection:tappedCellPath.section];
-                UICollectionViewCell* firstItem = [self.collectionView cellForItemAtIndexPath:tappedCellPath];
-                UICollectionViewCell* lastItem = [self.collectionView cellForItemAtIndexPath:lastItemIndexPath];
-                CGFloat firstItemTop = firstItem.frame.origin.y;
-                CGFloat lastItemBottom = lastItem.frame.origin.y + lastItem.frame.size.height;
-                CGFloat height = self.collectionView.bounds.size.height;
-                
-                if (lastItemBottom - self.collectionView.contentOffset.y > height) {
-                    if (lastItemBottom - firstItemTop > height) {
-                        // using setContentOffset:animated: here because scrollToItemAtIndexPath:atScrollPosition:animated: is broken on iOS 6
-                        [self.collectionView setContentOffset:CGPointMake(0., firstItemTop) animated:YES];
-                    } else {
-                        [self.collectionView setContentOffset:CGPointMake(0., lastItemBottom - height) animated:YES];
-                    }
-                }
-                if ([self.delegate respondsToSelector:@selector(collectionView:didExpandItemAtIndexPath:)]) {
-                    [self.delegate collectionView:self.collectionView didExpandItemAtIndexPath:tappedCellPath];
-                }
-            } else {
-                if ([self.delegate respondsToSelector:@selector(collectionView:didCollapseItemAtIndexPath:)]) {
-                    [self.delegate collectionView:self.collectionView didCollapseItemAtIndexPath:tappedCellPath];
-                }
-            }
-        }
-    }
-}
-
-#pragma mark - UIGestureRecognizerDelegate
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-//    if (gestureRecognizer == self.tapGestureRecognizer) {
-//        if (gestureRecognizer.state == UIGestureRecognizerStatePossible) {
-//            CGPoint point = [touch locationInView:self.collectionView];
-//            NSIndexPath* tappedCellPath = [self.collectionView indexPathForItemAtPoint:point];
-//            return tappedCellPath && (tappedCellPath.item == 0);
-//        }
-//        return NO;
-//    }
-    return YES;
-}
-
 
 @end

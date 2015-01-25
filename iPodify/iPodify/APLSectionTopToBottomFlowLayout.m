@@ -51,7 +51,7 @@
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-    rect = CGRectInset(rect, -0.5 * self.itemSize.width, -0.5 * self.itemSize.height);
+    //rect = CGRectInset(rect, -0.5 * self.itemSize.width, -0.5 * self.itemSize.height);
     NSMutableArray* allAttributesInRect = [NSMutableArray array];
     for (NSInteger section = 0, maxSection = [self.points count]; section < maxSection; section++) {
         for (NSInteger item = 0, maxItem = [self.points[section] count]; item < maxItem; item++) {
