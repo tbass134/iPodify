@@ -10,31 +10,31 @@
 	<string>iPodify</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>30532AAA-D3A4-4386-976A-F5E8F035C345</key>
-		<string>https://bitbucket.org/thung/ensmbl.git</string>
+		<key>2F5C9550544A2CCD37A4E431E8047432AA92B4C2</key>
+		<string>https://github.com/tbass134/iPodify.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Spotify App/Ipodify-2/iPodify/iPodify.xcworkspace</string>
+	<string>iPodify/iPodify.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>30532AAA-D3A4-4386-976A-F5E8F035C345</key>
-		<string>../../../..</string>
+		<key>2F5C9550544A2CCD37A4E431E8047432AA92B4C2</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://bitbucket.org/thung/ensmbl.git</string>
+	<string>https://github.com/tbass134/iPodify.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>30532AAA-D3A4-4386-976A-F5E8F035C345</string>
+	<string>2F5C9550544A2CCD37A4E431E8047432AA92B4C2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>30532AAA-D3A4-4386-976A-F5E8F035C345</string>
+			<string>2F5C9550544A2CCD37A4E431E8047432AA92B4C2</string>
 			<key>IDESourceControlWCCName</key>
-			<string>PROJECTS LOCAL</string>
+			<string>iPodify</string>
 		</dict>
 	</array>
 </dict>

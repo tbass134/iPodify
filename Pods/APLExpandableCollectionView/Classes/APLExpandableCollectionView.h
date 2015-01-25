@@ -1,13 +1,4 @@
-//
-//  TracksCollectionViewController.h
-//  iPodify
-//
-//  Created by Tony Hung on 12/30/14.
-//  Copyright (c) 2014 Tony Hung. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
-#import "APLExpandableSectionFlowLayout.h"
 
 @protocol APLExpandableCollectionViewDelegate <UICollectionViewDelegateFlowLayout>
 
@@ -22,15 +13,12 @@
 @end
 
 
-
-@interface TracksCollectionViewController : UICollectionViewController
-@property (nonatomic,strong)SPTPartialPlaylist *playlist;
+@interface APLExpandableCollectionView : UICollectionView
 
 /** The collection view’s delegate object. */
 @property (nonatomic, assign) id <APLExpandableCollectionViewDelegate> delegate;
 
 /** Returns YES if the specified section is expanded. */
 - (BOOL)isExpandedSection:(NSInteger)section;
-
 
 @end

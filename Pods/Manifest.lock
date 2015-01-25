@@ -1,0 +1,10 @@
+PODS:
+  - APLExpandableCollectionView (0.0.1)
+
+DEPENDENCIES:
+  - APLExpandableCollectionView (~> 0.0)
+
+SPEC CHECKSUMS:
+  APLExpandableCollectionView: f90cc7a3e469a6734959024f1882abc422b5e7d8
+
+COCOAPODS: 0.35.0

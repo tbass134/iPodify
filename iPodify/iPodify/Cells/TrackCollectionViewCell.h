@@ -11,5 +11,6 @@
 @interface TrackCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *trackName;
 @property (weak, nonatomic) IBOutlet UILabel *trackArtist;
+@property (weak, nonatomic) IBOutlet UIView *indentView;
 
 @end

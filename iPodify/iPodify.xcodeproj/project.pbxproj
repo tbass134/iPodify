@@ -31,6 +31,9 @@
 		9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ABD18F57168002ED121 /* PlayerViewController.m */; };
 		9AAD3ACA18F57184002ED121 /* MainStoryboard-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */; };
 		9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD3ACD18F57250002ED121 /* ArtistViewController.m */; };
+		EA23FD881A693C160006EFEC /* TrackCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA23FD871A693C160006EFEC /* TrackCollectionReusableView.m */; };
+		EAAB65841A69DF2C00B62740 /* APLExpandableSectionFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAB65821A69DF2C00B62740 /* APLExpandableSectionFlowLayout.m */; };
+		EAAB65871A69E19800B62740 /* APLSectionTopToBottomFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAB65861A69E19800B62740 /* APLSectionTopToBottomFlowLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,7 @@
 		45E1119A1A53371300CA9B4E /* TracksCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TracksCollectionViewController.m; path = "View Controllers/TracksCollectionViewController.m"; sourceTree = "<group>"; };
 		45E1119C1A53539F00CA9B4E /* TrackCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackCollectionViewCell.h; path = Cells/TrackCollectionViewCell.h; sourceTree = "<group>"; };
 		45E1119D1A53539F00CA9B4E /* TrackCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackCollectionViewCell.m; path = Cells/TrackCollectionViewCell.m; sourceTree = "<group>"; };
+		84F8D22812D920D15EE7AA37 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9A49E8C11A51C6A000C87FB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9A4F4B6B1A530C0500415035 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		9A4F4B6D1A5322BE00415035 /* PlaylistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistCollectionViewCell.h; path = Cells/PlaylistCollectionViewCell.h; sourceTree = "<group>"; };
@@ -81,6 +85,14 @@
 		9AAD3AC918F57184002ED121 /* MainStoryboard-iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPhone.storyboard"; sourceTree = "<group>"; };
 		9AAD3ACC18F57250002ED121 /* ArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistViewController.h; sourceTree = "<group>"; };
 		9AAD3ACD18F57250002ED121 /* ArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistViewController.m; sourceTree = "<group>"; };
+		B7C7AA708933288E51C48146 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7AB00BF43B35EDAC7CE4CBE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EA23FD861A693C160006EFEC /* TrackCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackCollectionReusableView.h; path = Cells/TrackCollectionReusableView.h; sourceTree = "<group>"; };
+		EA23FD871A693C160006EFEC /* TrackCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackCollectionReusableView.m; path = Cells/TrackCollectionReusableView.m; sourceTree = "<group>"; };
+		EAAB65821A69DF2C00B62740 /* APLExpandableSectionFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLExpandableSectionFlowLayout.m; sourceTree = "<group>"; };
+		EAAB65831A69DF2C00B62740 /* APLExpandableSectionFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLExpandableSectionFlowLayout.h; sourceTree = "<group>"; };
+		EAAB65851A69E19800B62740 /* APLSectionTopToBottomFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLSectionTopToBottomFlowLayout.h; sourceTree = "<group>"; };
+		EAAB65861A69E19800B62740 /* APLSectionTopToBottomFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLSectionTopToBottomFlowLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +121,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81EAD03DD89BC8259333CD01 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				84F8D22812D920D15EE7AA37 /* Pods.debug.xcconfig */,
+				C7AB00BF43B35EDAC7CE4CBE /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9A4F4B6C1A53205700415035 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +137,8 @@
 				9A4F4B6E1A5322BE00415035 /* PlaylistCollectionViewCell.m */,
 				45E1119C1A53539F00CA9B4E /* TrackCollectionViewCell.h */,
 				45E1119D1A53539F00CA9B4E /* TrackCollectionViewCell.m */,
+				EA23FD861A693C160006EFEC /* TrackCollectionReusableView.h */,
+				EA23FD871A693C160006EFEC /* TrackCollectionReusableView.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -128,6 +151,7 @@
 				9AAD3A8F18F56F6D002ED121 /* iPodifyTests */,
 				9AAD3A6F18F56F6C002ED121 /* Frameworks */,
 				9AAD3A6E18F56F6C002ED121 /* Products */,
+				81EAD03DD89BC8259333CD01 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +172,7 @@
 				9AAD3A7018F56F6C002ED121 /* Foundation.framework */,
 				9AAD3A7218F56F6C002ED121 /* CoreGraphics.framework */,
 				9AAD3A7418F56F6C002ED121 /* UIKit.framework */,
+				B7C7AA708933288E51C48146 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -155,6 +180,7 @@
 		9AAD3A7618F56F6C002ED121 /* iPodify */ = {
 			isa = PBXGroup;
 			children = (
+				EAAB65811A69DF0B00B62740 /* Layouts */,
 				9A4F4B6C1A53205700415035 /* Cells */,
 				9AAD3AAD18F57146002ED121 /* Categories */,
 				9AAD3AAC18F57140002ED121 /* Managers */,
@@ -230,6 +256,17 @@
 			children = (
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		EAAB65811A69DF0B00B62740 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				EAAB65821A69DF2C00B62740 /* APLExpandableSectionFlowLayout.m */,
+				EAAB65851A69E19800B62740 /* APLSectionTopToBottomFlowLayout.h */,
+				EAAB65861A69E19800B62740 /* APLSectionTopToBottomFlowLayout.m */,
+				EAAB65831A69DF2C00B62740 /* APLExpandableSectionFlowLayout.h */,
+			);
+			name = Layouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +368,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAAB65841A69DF2C00B62740 /* APLExpandableSectionFlowLayout.m in Sources */,
+				EAAB65871A69E19800B62740 /* APLSectionTopToBottomFlowLayout.m in Sources */,
 				45E1119E1A53539F00CA9B4E /* TrackCollectionViewCell.m in Sources */,
 				9A4F4B6F1A5322BE00415035 /* PlaylistCollectionViewCell.m in Sources */,
 				9AAD3AB818F5715C002ED121 /* PlayerManager.m in Sources */,
@@ -338,6 +377,7 @@
 				45E1119B1A53371300CA9B4E /* TracksCollectionViewController.m in Sources */,
 				9AAD3AB918F5715C002ED121 /* PlaylistManager.m in Sources */,
 				9AAD3A8118F56F6C002ED121 /* AppDelegate.m in Sources */,
+				EA23FD881A693C160006EFEC /* TrackCollectionReusableView.m in Sources */,
 				9AAD3AC418F57168002ED121 /* MainViewController.m in Sources */,
 				9AAD3ACE18F57250002ED121 /* ArtistViewController.m in Sources */,
 				9AAD3AC518F57168002ED121 /* PlayerViewController.m in Sources */,
@@ -455,6 +495,7 @@
 		};
 		9AAD3A9A18F56F6D002ED121 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84F8D22812D920D15EE7AA37 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -474,6 +515,7 @@
 		};
 		9AAD3A9B18F56F6D002ED121 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7AB00BF43B35EDAC7CE4CBE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
