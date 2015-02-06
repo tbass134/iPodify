@@ -61,6 +61,11 @@
         self.album_txt.text = [[PlayerManager sharedInstance].player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataAlbumName];
         self.artist_name_txt.text = [[PlayerManager sharedInstance].player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataArtistName];
     }
+    
+    //update the states of the ff / rr buttons
+    self.prev_btn.enabled = (self.current_track_index > 1);
+    self.fwd_btn.enabled =  (self.current_track_index < self.tracks.count - 1);
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -97,6 +102,8 @@
         [[PlayerManager sharedInstance]coverForAlbum:track.album with_block:^(UIImage *image) {
             self.coverImage.image = image;
         }];
+        [self.timer invalidate];
+
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                       target:self
                                                     selector:@selector(updateTime:)
@@ -147,10 +154,10 @@
 
 - (IBAction)playNextTrack:(id)sender
 {
-    if(self.current_track_index <self.tracks.count)
+    self.current_track_index++;
+
+    if(self.current_track_index < self.tracks.count)
     {
-        [self.timer invalidate];
-        self.current_track_index++;
         SPTPartialTrack *track =self.tracks[self.current_track_index];
         [self playTheTrack:track];
     }
@@ -158,10 +165,9 @@
 }
 - (IBAction)playPreviousTrack:(id)sender
 {
-    if(self.current_track_index >=1)
+    self.current_track_index--;
+    if(self.current_track_index > 0)
     {
-        [self.timer invalidate];
-        self.current_track_index--;
         SPTPartialTrack *track =self.tracks[self.current_track_index];
         [self playTheTrack:track];
     }
