@@ -124,69 +124,57 @@
 {
     NSLog(@"offset %f",offset);
     //[[SPSession sharedSession]seekPlaybackToOffset:offset];
+    [self.player seekToOffset:offset callback:nil];
+    
 }
 -(void)updateLockScreen
 {
-//    Class playingInfoCenter = NSClassFromString(@"MPNowPlayingInfoCenter");
-//    
-//    SPTTrack *track = self.playbackManager.currentTrack;
-//    if (playingInfoCenter) {
-//        MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
-//        NSDictionary *songInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                  track.album.artist.name, MPMediaItemPropertyArtist,
-//                                  track.name, MPMediaItemPropertyTitle,
-//                                  track.album.name, MPMediaItemPropertyAlbumTitle,
-//                                  nil];
-//        center.nowPlayingInfo = songInfo;
-//    }
+    Class playingInfoCenter = NSClassFromString(@"MPNowPlayingInfoCenter");
+    
+    if (playingInfoCenter) {
+        MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
+        NSDictionary *songInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [self.player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataArtistName], MPMediaItemPropertyArtist,
+                                  [self.player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataTrackName], MPMediaItemPropertyTitle,
+                                  [self.player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataAlbumName], MPMediaItemPropertyAlbumTitle,
+                                  nil];
+        center.nowPlayingInfo = songInfo;
+    }
 }
 
 #pragma mark - 
 #pragma mark Track Features
--(void)starTrack:(SPTTrack *)track
+-(void)starTrack:(SPTPartialTrack *)track
 {
 //    if(!track.starred)
 //        track.starred = YES;
 //    else
 //        track.starred = NO;
 }
+
 -(void)saveTrack:(SPTTrack *)track
 {
 }
-#pragma mark -
-#pragma mark Playback
-/*
--(void)sessionDidLosePlayToken:(id <SPSessionPlaybackProvider>)aSession {
-    
-    NSLog(@"app has been paused because your account is used somewhere else.");
-    
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Song has been paused because your account is used somewhere else." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
-    
-   self.playbackManager.isPlaying = NO;
-    if(self.trackPaused)
-        self.trackPaused();
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:kPlaybackDidChangeCurrentTrackNotification object:nil];
+
+#pragma mark - Track Player Delegates
+
+- (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didReceiveMessage:(NSString *)message {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Message from Spotify"
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
--(void)playbackManagerWillStartPlayingAudio:(SPPlaybackManager *)aPlaybackManager {
+- (void) audioStreaming:(SPTAudioStreamingController *)audioStreaming didChangeToTrack:(NSDictionary *)trackMetadata {
+    if (self.trackChanged) {
+        self.trackChanged(trackMetadata);
+    }
 }
 
--(void)sessionDidEndPlayback:(id <SPSessionPlaybackProvider>)aSession
-{
-    //the
-    self.trackComplete();
-    
-    NSLog(@"track complete");
-}
--(void)session:(id <SPSessionPlaybackProvider>)aSession didEncounterStreamingError:(NSError *)error;
-{
-    self.trackError(error);
-    
-    NSLog(@"track error");
-}
-*/
+
+
 #pragma mark -
 #pragma mark AVAudio
 

@@ -15,6 +15,8 @@
 @property (nonatomic, strong) void (^trackComplete)();
 @property (nonatomic, strong) void (^trackPaused)();
 @property (nonatomic, strong) void (^trackError)(NSError *error);
+@property (nonatomic, strong) void (^trackChanged)(NSDictionary *metaData);
+
 
 
 //@property (nonatomic, readwrite, strong) SPPlaybackManager *playbackManager;
@@ -22,9 +24,9 @@
 -(void)initPlayer;
 - (void)loginWithSession:(SPTSession *)session usingCallback:(void (^)(BOOL success))block;
 -(void)playTrack:(SPTPartialTrack *)track with_block:(void (^)(SPTTrack *track))block;
--(void)starTrack:(SPTTrack *)track;
+-(void)starTrack:(SPTPartialTrack *)track;
 
--(void)coverForAlbum:(SPTAlbum *)album with_block:(void (^)(UIImage *image))block;
+-(void)coverForAlbum:(SPTPartialAlbum *)album with_block:(void (^)(UIImage *image))block;
 -(void)seekToPosition:(NSTimeInterval)offset;
 + (PlayerManager*)sharedInstance;
 

@@ -137,7 +137,7 @@ static NSString * const reuseIdentifier = @"Cell";
         PlayerViewController *controller = segue.destinationViewController;
         controller.tracks = values;
         controller.current_track_index = indexPath.row;
-        controller.current_track = track;
+        //controller.current_track = track;
     }
 }
 

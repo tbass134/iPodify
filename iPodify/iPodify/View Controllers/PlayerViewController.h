@@ -11,11 +11,9 @@
 @interface PlayerViewController : UIViewController
 {
     BOOL trackLoaded;
-   
     BOOL is_playing;
     BOOL is_seeking;
 }
-@property(nonatomic,weak)SPTPartialTrack *current_track;
 @property(nonatomic,weak)NSTimer *timer;
 @property(nonatomic,assign)BOOL scrubbing;
 @property(nonatomic,strong)NSArray *tracks;
