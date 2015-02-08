@@ -13,7 +13,10 @@
 #import "PlayerManager.h"
 
 @interface PlaylistsCollectionViewController ()
-
+{
+    NSArray *starredTracks;
+    NSMutableArray *images;
+}
 @end
 
 @implementation PlaylistsCollectionViewController
@@ -22,18 +25,43 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(sessionDataLoaded) name:@"successCallback" object:nil];
 }
 
 - (void)sessionDataLoaded
 {
-    //[self loadPlaylistsFromPlaylist:nil];
+    if ([PlayerManager sharedInstance].session) {
+        if (!self.playlists) {
+            self.playlists = [NSMutableArray new];
+        }
+        
+        [[PlaylistManager sharedInstance]loadPlaylists:^(NSError *error, NSArray *playlists) {
+            [self.playlists addObjectsFromArray:playlists];
+            
+            images = [NSMutableArray new];
+            
+            for (id playlist in playlists) {
+                [images addObject:[NSNull null]];
+            }
+            [self.collectionView reloadData];
+        }];
+        
+//        [[PlaylistManager sharedInstance]loadStarredPlaylist:^(NSError *error, SPTPlaylistSnapshot *snapshot) {
+//            
+//            [images addObject:nil];
+//            [self.playlists addObject:snapshot];
+//            [self.collectionView reloadData];
+//        }];
+//        
+//        [[PlaylistManager sharedInstance]loadSavedTracks:^(NSError *error, NSArray *tracks) {
+//            [images addObject:nil];
+//
+//            [self.playlists addObject:tracks];
+//            [self.collectionView reloadData];
+//            NSLog(@"playlists %@",tracks);
+//        }];
+    }
     
-    [[PlaylistManager sharedInstance]loadPlaylists:^(NSError *error, NSArray *playlists) {
-        self.playlists = playlists;
-        [self.collectionView reloadData];
-    }];
     
 }
 - (void)loadPlaylistsFromPlaylist: (SPTPartialPlaylist *)playlist
@@ -53,11 +81,16 @@ static NSString * const reuseIdentifier = @"Cell";
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"showTracks"]) {
-        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
-        SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
         TracksCollectionViewController *controller = segue.destinationViewController;
-        controller.playlist = playlist;
 
+        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+        if ([[self.playlists objectAtIndex:indexPath.row] isKindOfClass:[SPTPartialPlaylist class]]) {
+
+            SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
+            controller.playlist = playlist;
+        } else {
+            controller.savedTracks = [self.playlists objectAtIndex:indexPath.row];
+        }
     }
 }
 
@@ -68,9 +101,9 @@ static NSString * const reuseIdentifier = @"Cell";
     return 1;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((CGRectGetWidth(self.collectionView.bounds) / 2)-10.0, 150);
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    return CGSizeMake((CGRectGetWidth(self.collectionView.bounds) / 2)-10.0, 150);
+//}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.playlists.count;
@@ -79,23 +112,34 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     PlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor greenColor];
+    cell.coverImage.image = nil;
+    cell.playlistName.text = nil;
     
-    SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-        NSData *data0 = [NSData dataWithContentsOfURL:[[playlist.images firstObject] imageURL]];
-        UIImage *image = [UIImage imageWithData:data0];
+    if ([[self.playlists objectAtIndex:indexPath.row] isKindOfClass:[SPTPartialPlaylist class]])
+    {
+        SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
         
-        dispatch_sync(dispatch_get_main_queue(), ^(void) {
-            cell.coverImage.image = image;
-        });
-    });
-    
-    
-    
-    cell.playlistName.text = playlist.name;
-    //cell.playlistCoverImage.image = playlist
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+                NSData *data0 = [NSData dataWithContentsOfURL:[playlist.largestImage imageURL]];
+                UIImage *image = [UIImage imageWithData:data0];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                    if (image) {
+                        cell.coverImage.image = image;
+                    }
+                });
+            });
+       
+            cell.playlistName.text = playlist.name;
+            //cell.playlistCoverImage.image = playlist
+    }
+    else {
+        cell.coverImage.image = nil;
+        cell.playlistName.text = @"Saved Tracks";
+
+        
+
+    }
     
     return cell;
 }
@@ -104,7 +148,13 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"showTracks" sender:nil];
+    if (self.playlistSelected) {
+        SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
+        self.playlistSelected(playlist);
+        
+    } else {
+        [self performSegueWithIdentifier:@"showTracks" sender:nil];
+    }
 }
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking

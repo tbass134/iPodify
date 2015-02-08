@@ -17,6 +17,10 @@
 
 + (PlaylistManager*)sharedInstance;
 - (void)loadPlaylists:(void (^)(NSError *, NSArray *))callback;
+- (void)loadStarredPlaylist:(void (^)(NSError *, id object))callback;
+- (void)loadSavedTracks:(void (^)(NSError *, NSArray *))callback;
+
+
 -(void)setPlaylistAsOffline:(SPTPlaylistList *)playlist;
 -(BOOL)isTrackInPlaylist:(SPTTrack *)track;
 @end

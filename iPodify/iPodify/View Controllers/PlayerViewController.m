@@ -7,9 +7,10 @@
 //
 
 #import "PlayerViewController.h"
+#import "PlaylistsCollectionViewController.h"
 #import "PlayerManager.h"
 #import <MediaPlayer/MPVolumeView.h>
-@interface PlayerViewController ()
+@interface PlayerViewController () <UIActionSheetDelegate>
 
 @end
 
@@ -33,6 +34,26 @@
     [self.volumeView addSubview: myVolumeView];
     [self.duration_slider addTarget:self action:@selector(sliderTouchUpInsideAction:) forControlEvents:UIControlEventTouchUpInside];
 
+    SPTPartialTrack *track =self.tracks[self.current_track_index];
+    [self playTheTrack:track];
+    
+    [[PlayerManager sharedInstance]setTrackPaused:^{
+        [self.play_btn setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
+    }];
+    
+    [[PlayerManager sharedInstance]setTrackChanged:^(NSDictionary *metaDict) {
+        [self updateUI];
+        
+        if ([PlayerManager sharedInstance].player.currentTrackMetadata == nil) {
+            NSLog(@"track is over");
+            trackLoaded = NO;
+            [self.timer invalidate];
+            [self playNextTrack:nil];
+        }
+        
+    }];
+
+    
     [super viewDidLoad];
 }
 
@@ -46,8 +67,6 @@
 
     self.current_time_txt.text = [self formattedStringForDuration:currentTime];
     self.duration_slider.value = (currentTime / [totalTime doubleValue]);
-    //[self updateUI];
-    
 }
 
 -(void)updateUI {
@@ -70,24 +89,6 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    SPTPartialTrack *track =self.tracks[self.current_track_index];
-    [self playTheTrack:track];
-    
-    [[PlayerManager sharedInstance]setTrackPaused:^{
-        [self.play_btn setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
-    }];
-    
-    [[PlayerManager sharedInstance]setTrackChanged:^(NSDictionary *metaDict) {
-        [self updateUI];
-        
-        if ([PlayerManager sharedInstance].player.currentTrackMetadata == nil) {
-            NSLog(@"track is over");
-            trackLoaded = NO;
-            [self.timer invalidate];
-            [self playNextTrack:nil];
-        }
-        
-    }];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -179,8 +180,8 @@
     NSUInteger count = [self.tracks count];
     for (NSUInteger i = 0; i < count; ++i) {
         // Select a random element between i and end of array to swap with.
-        int nElements = count - i;
-        int n = (arc4random() % nElements) + i;
+        NSInteger nElements = count - i;
+        NSInteger n = (arc4random() % nElements) + i;
         [tracks exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
     
@@ -200,42 +201,99 @@
      [self playTheTrack:track];
 }
 
-- (IBAction)starTrack:(id)sender;
-{
-    SPTPartialTrack *track =self.tracks[self.current_track_index];
 
+- (IBAction)showMore:(id)sender {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to playlist",@"Save track",@"Star track", nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            [self addToPlaylist];
+            break;
+        case 1:
+            [self saveTrack];
+            break;
+        case  2:
+            [self starTrack];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)starTrack
+{
+    //not working
+    [SPTRequest starredListForUserInSession:[PlayerManager sharedInstance].session callback:^(NSError *error, id object) {
+        SPTPlaylistSnapshot *playlistSnapshot = (SPTPlaylistSnapshot *)object;
+        SPTPartialTrack *track =self.tracks[self.current_track_index];
+        
+        [playlistSnapshot addTracksToPlaylist:@[track] withSession:[PlayerManager sharedInstance].session callback:^(NSError *error) {
+            
+            NSLog(@"error %@",error);
+            //TODO add alert / toast when track is added
+            if (!error) {
+                NSLog(@"track added");
+            }
+        }];
+        
+    }];
+    
+    SPTPartialTrack *track =self.tracks[self.current_track_index];
+    
     if(track) {
         [[PlayerManager sharedInstance]starTrack:track];
     }
+    
+}
+- (void)saveTrack
+{
+    SPTPartialTrack *track =self.tracks[self.current_track_index];
+    [SPTRequest saveTracks:@[track] forUserInSession:[PlayerManager sharedInstance].session  callback:^(NSError *error, id object) {
+        
+        //if (!error) {
+            NSLog(@"error %@",error);
+        //}
+    }];
+}
 
-}
-- (IBAction)saveTrack:(id)sender {
+- (void)addToPlaylist
+{
+    __weak PlaylistsCollectionViewController *playlists = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlists"];
+
+    [playlists setPlaylistSelected:^(SPTPartialPlaylist *playlist) {
+        
+        [SPTRequest requestItemFromPartialObject:playlist withSession:[PlayerManager sharedInstance].session callback:^(NSError *error, SPTPlaylistSnapshot *playlistSnapshot) {
+            SPTPartialTrack *track =self.tracks[self.current_track_index];
+
+            if (!error) {
+                [playlistSnapshot addTracksToPlaylist:@[track] withSession:[PlayerManager sharedInstance].session callback:^(NSError *error) {
+                    
+                    //TODO add alert / toast when track is added
+                    if (!error) {
+                        NSLog(@"track added");
+                    }
+                }];
+            } else {
+                NSLog(@"requestItemFromPartialObject error: %@",error);
+            }
+        }];
+        
+        [playlists dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self.navigationController presentViewController:playlists animated:YES completion:^{
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"successCallback" object:nil];
+
+    }];
     
 }
 
-- (IBAction)addToPlaylist:(id)sender {
-    
-//    __weak PlaylistsTableViewController *playlists = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlists"];
-//    
-//    [playlists setAddToPlaylist:^(SPPlaylist *playlist) {
-//        
-//        [playlist addItem:self.current_track atIndex:0 callback:^(NSError *error) {
-//            if(!error)
-//            {
-//                printf("track added!");
-//            }
-//            else
-//            {
-//                NSLog(@"error %@",error);
-//            }
-//            [playlists dismissViewControllerAnimated:YES completion:nil];
-//
-//        }];
-//    }];
-//    
-//    [self.navigationController presentViewController:playlists animated:YES completion:nil];
-    
-}
+
+
 - (NSString*)formattedStringForDuration:(NSTimeInterval)duration
 {
     NSInteger minutes = floor(duration/60);

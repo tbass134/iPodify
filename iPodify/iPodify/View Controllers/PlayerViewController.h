@@ -42,7 +42,5 @@
 - (IBAction)volumeChanged:(id)sender;
 - (IBAction)shuffleTracks:(id)sender;
 - (IBAction)repeatTrack:(id)sender;
-- (IBAction)saveTrack:(id)sender;
-- (IBAction)starTrack:(id)sender;
-- (IBAction)addToPlaylist:(id)sender;
+- (IBAction)showMore:(id)sender;
 @end

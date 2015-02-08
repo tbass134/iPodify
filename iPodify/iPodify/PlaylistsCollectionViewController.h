@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PlaylistsCollectionViewController : UICollectionViewController
-@property(nonatomic,strong)NSArray *playlists;
+@property(nonatomic,strong)NSMutableArray *playlists;
+@property (nonatomic, strong) void (^playlistSelected)(SPTPartialPlaylist *playlist); //used to add a track to a playlist
 
 @end

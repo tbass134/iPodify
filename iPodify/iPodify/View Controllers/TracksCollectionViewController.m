@@ -34,14 +34,16 @@ static NSString * const reuseIdentifier = @"Cell";
     layout.minimumLineSpacing = 4.;
     layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0);
     
-
-    
-    
     [SPTRequest requestItemFromPartialObject:self.playlist withSession:[PlayerManager sharedInstance].session callback:^(NSError *error, SPTPlaylistSnapshot *playlistSnapshot) {
         _playlistSnapshot = playlistSnapshot;
         SPTListPage *page = _playlistSnapshot.firstTrackPage;
         [self loadTracksForPage:page];
     }];
+    if (self.savedTracks) {
+        allTracks = [NSMutableArray arrayWithArray:self.savedTracks];
+        [self sortTracksByArtist];
+        [self.collectionView reloadData];
+    }
     [super viewDidLoad];
 }
 - (void)loadTracksForPage:(SPTListPage *)page
@@ -133,10 +135,9 @@ static NSString * const reuseIdentifier = @"Cell";
         NSArray *keys = [sortedTracks allKeys];
         NSArray *values = [sortedTracks[keys[indexPath.section]]sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
         
-        SPTPartialTrack *track = [values objectAtIndex:indexPath.row - 1];
         PlayerViewController *controller = segue.destinationViewController;
         controller.tracks = values;
-        controller.current_track_index = indexPath.row;
+        controller.current_track_index = indexPath.row - 1;
         //controller.current_track = track;
     }
 }

@@ -32,6 +32,8 @@
 - (void)openLoginPage {
     SPTAuth *auth = [SPTAuth defaultInstance];
     
+    NSArray *scopes = @[SPTAuthStreamingScope,SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistModifyPrivateScope, SPTAuthPlaylistModifyPublicScope,SPTAuthUserLibraryModifyScope, SPTAuthUserLibraryReadScope];
+    
     NSString *swapUrl = @kTokenSwapServiceURL;
     NSURL *loginURL;
     
@@ -39,13 +41,13 @@
         // If we don't have a token exchange service, we need to request the token response type.
         loginURL = [auth loginURLForClientId:@kClientId
                          declaredRedirectURL:[NSURL URLWithString:@kCallbackURL]
-                                      scopes:@[SPTAuthStreamingScope,SPTAuthPlaylistReadPrivateScope]
+                                      scopes:scopes
                             withResponseType:@"token"];
     }
     else {
         loginURL = [auth loginURLForClientId:@kClientId
                          declaredRedirectURL:[NSURL URLWithString:@kCallbackURL]
-                                      scopes:@[SPTAuthStreamingScope,SPTAuthPlaylistReadPrivateScope]];
+                                      scopes:scopes];
         
     }
     double delayInSeconds = 0.1;

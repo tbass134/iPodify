@@ -11,4 +11,6 @@
 
 @interface TracksCollectionViewController : UICollectionViewController <APLExpandableCollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic,strong)SPTPartialPlaylist *playlist;
+@property (nonatomic,strong)NSArray *savedTracks;
+
 @end
