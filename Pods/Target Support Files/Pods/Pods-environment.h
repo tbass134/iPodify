@@ -6,12 +6,6 @@
 // project.
 
 
-// APLExpandableCollectionView
-#define COCOAPODS_POD_AVAILABLE_APLExpandableCollectionView
-#define COCOAPODS_VERSION_MAJOR_APLExpandableCollectionView 0
-#define COCOAPODS_VERSION_MINOR_APLExpandableCollectionView 0
-#define COCOAPODS_VERSION_PATCH_APLExpandableCollectionView 1
-
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
 #define COCOAPODS_VERSION_MAJOR_SDWebImage 3

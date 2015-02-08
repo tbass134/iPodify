@@ -1,12 +1,14 @@
 
 Features:
-	- after track is complete, play next track
+	- save Login
+	- after track is complete, play next track @done(2015-02-08)
 	- Offline Support
-	- adding track to playlist
+	- adding track to playlist @done(2015-02-08)
 
 Bugs:
-	- Cant scrub track
-	- album artwork doesnt appear until 2nd track
-	- Allow user to scrub track to location
+	- Cant scrub track @done(2015-02-08)
+	- album artwork doesnt appear until 2nd track @done(2015-02-08)
+	- Allow user to scrub track to location @done(2015-02-08)
+	- playlist CV images reload
 
 Misc:

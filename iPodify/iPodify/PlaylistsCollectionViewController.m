@@ -11,6 +11,7 @@
 #import "PlaylistCollectionViewCell.h"
 #import "PlaylistManager.h"
 #import "PlayerManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PlaylistsCollectionViewController ()
 {
@@ -119,26 +120,12 @@ static NSString * const reuseIdentifier = @"Cell";
     {
         SPTPartialPlaylist *playlist = [self.playlists objectAtIndex:indexPath.row];
         
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-                NSData *data0 = [NSData dataWithContentsOfURL:[playlist.largestImage imageURL]];
-                UIImage *image = [UIImage imageWithData:data0];
-                
-                dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                    if (image) {
-                        cell.coverImage.image = image;
-                    }
-                });
-            });
-       
-            cell.playlistName.text = playlist.name;
-            //cell.playlistCoverImage.image = playlist
+        [cell.coverImage sd_setImageWithURL:[playlist.largestImage imageURL]];
+        cell.playlistName.text = playlist.name;
     }
     else {
         cell.coverImage.image = nil;
         cell.playlistName.text = @"Saved Tracks";
-
-        
-
     }
     
     return cell;

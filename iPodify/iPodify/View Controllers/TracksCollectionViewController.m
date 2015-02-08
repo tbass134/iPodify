@@ -56,7 +56,7 @@ static NSString * const reuseIdentifier = @"Cell";
         }];
     } else
     {
-        //NSLog(@"done loading tracks %@",allTracks);
+        NSLog(@"done loading tracks %@",allTracks);
         //sort tracks by arist, then song
         [self sortTracksByArtist];
         [self.collectionView reloadData];
@@ -81,6 +81,20 @@ static NSString * const reuseIdentifier = @"Cell";
     return [allTracks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"artists.identifier contains[cd] %@",artistID]];
 }
 
+- (NSString *)artistNameForIdentifier:(NSString *)artistID
+{
+    
+    NSArray *tracks =  [allTracks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"artists.identifier contains[cd] %@",artistID]];
+    SPTPartialTrack *track = [tracks firstObject];
+    
+    if (track) {
+        SPTPartialArtist *artist = [track.artists firstObject];
+        return artist.name;
+        //NSLog(@"name %@",[track.artists firstObject]);
+    }
+    return @"";
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -106,8 +120,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (indexPath.item == 0) {
         NSArray *keys = [sortedTracks allKeys];
-         cell.trackName.text = keys[indexPath.section];
-        cell.indentView.hidden = YES;
+         cell.trackName.text = [self artistNameForIdentifier:keys[indexPath.section]];
+            cell.indentView.hidden = YES;
 
     }
     else {
