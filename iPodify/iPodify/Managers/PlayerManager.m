@@ -18,10 +18,6 @@
 
 -(void)initPlayer
 {
-//    self.playbackManager.isPlaying = NO;
-//    
-//    self.playbackManager = [[SPPlaybackManager alloc] initWithPlaybackSession:[SPSession sharedSession]];
-//	[[SPSession sharedSession] setDelegate:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruption:) name:AVAudioSessionInterruptionNotification object:nil];
         
@@ -78,6 +74,7 @@
                             
                             [SPTRequest requestItemFromPartialObject:track withSession:self.session callback:^(NSError *error, SPTTrack *track) {
                                 if (error == nil) {
+                                    [self updateLockScreen:nil];
                                     block(track);
                                 }
                             }];
@@ -114,6 +111,9 @@
                               if (image == nil) {
                                   NSLog(@"Couldn't load cover image with error: %@", error);
                               }
+                              else {
+                                  [self updateLockScreen:image];
+                              }
                           });
                       });
                   }];
@@ -123,22 +123,50 @@
 -(void)seekToPosition:(NSTimeInterval)offset
 {
     NSLog(@"offset %f",offset);
-    //[[SPSession sharedSession]seekPlaybackToOffset:offset];
     [self.player seekToOffset:offset callback:nil];
-    
+
 }
--(void)updateLockScreen
+
+#pragma mark Remote Controls
+-(void)updateLockScreen:(UIImage *)albumArtImage
 {
     Class playingInfoCenter = NSClassFromString(@"MPNowPlayingInfoCenter");
     
     if (playingInfoCenter) {
-        MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
-        NSDictionary *songInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+        NSMutableDictionary *songInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [self.player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataArtistName], MPMediaItemPropertyArtist,
                                   [self.player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataTrackName], MPMediaItemPropertyTitle,
                                   [self.player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataAlbumName], MPMediaItemPropertyAlbumTitle,
+                                   [self.player.currentTrackMetadata valueForKey:SPTAudioStreamingMetadataTrackDuration], MPMediaItemPropertyPlaybackDuration,
                                   nil];
-        center.nowPlayingInfo = songInfo;
+        if (albumArtImage) {
+            MPMediaItemArtwork *albumArt = [[MPMediaItemArtwork alloc] initWithImage:albumArtImage];
+            [songInfo setObject:albumArt forKey:MPMediaItemPropertyArtwork];
+        }
+
+        [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:songInfo];
+
+    }
+}
+
+- (void)remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        
+        switch (receivedEvent.subtype) {
+                
+            case UIEventSubtypeRemoteControlPlay:
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                break;
+            case UIEventSubtypeRemoteControlStop:
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                break;
+            default: break;
+        }
     }
 }
 

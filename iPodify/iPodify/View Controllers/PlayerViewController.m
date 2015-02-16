@@ -27,7 +27,6 @@
 
 - (void)viewDidLoad
 {
-    [[PlayerManager sharedInstance]initPlayer];
     
     MPVolumeView *myVolumeView = [[MPVolumeView alloc] initWithFrame: self.volumeView.bounds];
     self.volumeView.backgroundColor = [UIColor clearColor];
@@ -37,9 +36,6 @@
     SPTPartialTrack *track =self.tracks[self.current_track_index];
     [self playTheTrack:track];
     
-    [[PlayerManager sharedInstance]setTrackPaused:^{
-        [self.play_btn setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
-    }];
     
     [[PlayerManager sharedInstance]setTrackChanged:^(NSDictionary *metaDict) {
         [self updateUI];
@@ -55,6 +51,23 @@
 
     
     [super viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Turn on remote control event delivery
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    // Set itself as the first responder
+    [self becomeFirstResponder];
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.timer invalidate];
 }
 
 - (void)updateTime:(NSTimer *)timer {
@@ -85,15 +98,40 @@
     self.prev_btn.enabled = (self.current_track_index > 1);
     self.fwd_btn.enabled =  (self.current_track_index < self.tracks.count - 1);
 
+    if(![PlayerManager sharedInstance].player.isPlaying)
+    {
+        [self.play_btn setImage:[UIImage imageNamed:@"pause_icon"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.play_btn setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
+
+    }
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [self.timer invalidate];
+- (void)remoteControlReceivedWithEvent:(UIEvent *)receivedEvent {
+    
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        
+        switch (receivedEvent.subtype) {
+                
+            case UIEventSubtypeRemoteControlPlay:
+            case UIEventSubtypeRemoteControlPause:
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                [self playTrack:nil];
+                break;
+                
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                [self playPreviousTrack:nil];
+                break;
+                
+            case UIEventSubtypeRemoteControlNextTrack:
+                [self playNextTrack:nil];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 -(void)playTheTrack:(SPTPartialTrack *)track
@@ -111,9 +149,9 @@
                                                     userInfo:nil
                                                      repeats:YES];
         self.duration_slider.value = 0;
-        [self.play_btn setImage:[UIImage imageNamed:@"pause_icon"] forState:UIControlStateNormal];
         self.duration_time_txt.text =[self formattedStringForDuration:track.duration];
         [self updateUI];
+        
     }];
     
  }
@@ -141,16 +179,13 @@
 {
     if(![PlayerManager sharedInstance].player.isPlaying)
     {
-        [self.play_btn setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
         [[PlayerManager sharedInstance].player setIsPlaying:YES callback:nil];
     }
     else
     {
-        [self.play_btn setImage:[UIImage imageNamed:@"pause_icon"] forState:UIControlStateNormal];
         [[PlayerManager sharedInstance].player setIsPlaying:NO callback:nil];
-
     }
-
+    [self updateUI];
 }
 
 - (IBAction)playNextTrack:(id)sender

@@ -11,10 +11,6 @@
 @interface PlayerManager : NSObject <SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate>
 @property (nonatomic,strong) SPTSession *session;
 @property (nonatomic, strong) SPTAudioStreamingController *player;
-
-@property (nonatomic, strong) void (^trackComplete)();
-@property (nonatomic, strong) void (^trackPaused)();
-@property (nonatomic, strong) void (^trackError)(NSError *error);
 @property (nonatomic, strong) void (^trackChanged)(NSDictionary *metaData);
 
 
