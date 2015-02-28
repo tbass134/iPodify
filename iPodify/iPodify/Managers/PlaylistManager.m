@@ -29,6 +29,16 @@
     }];
 }
 
+- (void)loadTracksForPlaylist:(SPTPartialPlaylist *)playlist completion:(void (^)(NSError *, NSArray *))callback
+{
+    [SPTRequest requestItemFromPartialObject:playlist withSession:[PlayerManager sharedInstance].session callback:^(NSError *error, SPTPlaylistSnapshot *object) {
+
+        SPTPlaylistSnapshot *snapshot = (SPTPlaylistSnapshot *)object;
+        [self didFetchListPageForSession:[PlayerManager sharedInstance].session finalCallback:callback error:error object:snapshot.firstTrackPage allTracks:[NSMutableArray array]];
+        
+    }];
+}
+
 - (void)loadStarredPlaylist:(void (^)(NSError *, id object))callback
 {
     [SPTRequest starredListForUserInSession:[PlayerManager sharedInstance].session callback:^(NSError *error, id object) {
@@ -72,6 +82,30 @@
         }
 }
 
+- (void)didFetchListPageForSession:(SPTSession *)session finalCallback:(void (^)(NSError*, NSArray*))finalCallback error:(NSError *)error object:(id)object allTracks:(NSMutableArray *)allTracks
+{
+    if (error != nil) {
+        finalCallback(error, nil);
+    } else {
+        SPTListPage *page = (SPTListPage *)object;
+        
+        for (SPTPartialPlaylist *playlist in page.items) {
+            [allTracks addObject:playlist];
+        }
+        if (page.hasNextPage) {
+            [page requestNextPageWithSession:session callback:^(NSError *error, id object) {
+                [self didFetchListPageForSession:session
+                                   finalCallback:finalCallback
+                                           error:error
+                                          object:object
+                                    allPlaylists:allTracks];
+            }];
+        }
+        else {
+            finalCallback(nil, [allTracks copy]);
+        }
+    }
+}
 
 -(void)loadAllSongs
 {

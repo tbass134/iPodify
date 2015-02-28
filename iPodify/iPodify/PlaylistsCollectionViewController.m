@@ -26,6 +26,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]init];
+    activityView.center = self.collectionView.center;
+    _activityView = activityView;
+    [self.view addSubview:activityView];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(sessionDataLoaded) name:@"successCallback" object:nil];
 }
 
@@ -35,36 +40,17 @@ static NSString * const reuseIdentifier = @"Cell";
         if (!self.playlists) {
             self.playlists = [NSMutableArray new];
         }
+        [_activityView startAnimating];
         
         [[PlaylistManager sharedInstance]loadPlaylists:^(NSError *error, NSArray *playlists) {
             [self.playlists addObjectsFromArray:playlists];
+            [_activityView stopAnimating];
             
-            images = [NSMutableArray new];
-            
-            for (id playlist in playlists) {
-                [images addObject:[NSNull null]];
-            }
             [self.collectionView reloadData];
         }];
-        
-//        [[PlaylistManager sharedInstance]loadStarredPlaylist:^(NSError *error, SPTPlaylistSnapshot *snapshot) {
-//            
-//            [images addObject:nil];
-//            [self.playlists addObject:snapshot];
-//            [self.collectionView reloadData];
-//        }];
-//        
-//        [[PlaylistManager sharedInstance]loadSavedTracks:^(NSError *error, NSArray *tracks) {
-//            [images addObject:nil];
-//
-//            [self.playlists addObject:tracks];
-//            [self.collectionView reloadData];
-//            NSLog(@"playlists %@",tracks);
-//        }];
     }
-    
-    
 }
+
 - (void)loadPlaylistsFromPlaylist: (SPTPartialPlaylist *)playlist
 {
     

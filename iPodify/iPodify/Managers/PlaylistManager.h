@@ -17,6 +17,7 @@
 
 + (PlaylistManager*)sharedInstance;
 - (void)loadPlaylists:(void (^)(NSError *, NSArray *))callback;
+- (void)loadTracksForPlaylist:(SPTPartialPlaylist *)playlist completion:(void (^)(NSError *, NSArray *))callback;
 - (void)loadStarredPlaylist:(void (^)(NSError *, id object))callback;
 - (void)loadSavedTracks:(void (^)(NSError *, NSArray *))callback;
 

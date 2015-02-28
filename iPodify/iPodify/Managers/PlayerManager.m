@@ -26,6 +26,7 @@
     // Turn on remote control event delivery
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 }
+
 - (void)loginWithSession:(SPTSession *)session usingCallback:(void (^)(BOOL success))block
 {
     if (self.player == nil) {

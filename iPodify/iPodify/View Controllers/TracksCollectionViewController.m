@@ -11,13 +11,15 @@
 #import "TrackCollectionReusableView.h"
 #import "PlayerViewController.h"
 #import "PlayerManager.h"
+#import "PlaylistManager.h"
 
 @interface TracksCollectionViewController () <UIGestureRecognizerDelegate>
 {
-    NSMutableArray *allTracks;
     NSMutableDictionary *sortedTracks;
     SPTPlaylistSnapshot *_playlistSnapshot;
 }
+@property(nonatomic,strong) NSMutableArray *allTracks;
+
 @end
 
 @implementation TracksCollectionViewController
@@ -26,75 +28,61 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     
-    allTracks = [NSMutableArray new];
     sortedTracks = [NSMutableDictionary new];
+    
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]init];
+    activityView.center = self.collectionView.center;
+    _activityView = activityView;
+    [self.view addSubview:activityView];
+
     
     UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
     layout.itemSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 44.);
     layout.minimumLineSpacing = 4.;
     layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0);
     
-    [SPTRequest requestItemFromPartialObject:self.playlist withSession:[PlayerManager sharedInstance].session callback:^(NSError *error, SPTPlaylistSnapshot *playlistSnapshot) {
-        _playlistSnapshot = playlistSnapshot;
-        SPTListPage *page = _playlistSnapshot.firstTrackPage;
-        [self loadTracksForPage:page];
-    }];
     if (self.savedTracks) {
-        allTracks = [NSMutableArray arrayWithArray:self.savedTracks];
+        _allTracks = [NSMutableArray arrayWithArray:self.savedTracks];
         [self sortTracksByArtist];
         [self.collectionView reloadData];
+    } else {
+        
+        [_activityView startAnimating];
+        [[PlaylistManager sharedInstance]loadTracksForPlaylist:self.playlist completion:^(NSError *error, NSArray *tracks) {
+            _allTracks = [NSMutableArray arrayWithArray:tracks];
+            //NSLog(@"sorted %@",[_allTracks sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"artists[0].name" ascending:YES]]]);
+            
+            //NSLog(@"_allTracks %i",_allTracks.count);
+            
+            [self sortTracksByArtist];
+            [self.collectionView reloadData];
+            [_activityView stopAnimating];
+        }];
+        
     }
     [super viewDidLoad];
-}
-- (void)loadTracksForPage:(SPTListPage *)page
-{
-    NSLog(@"page.tracksForPlayback.count %lu page.totalListLength %lu", (unsigned long)page.tracksForPlayback.count,(unsigned long)page.totalListLength);
-    if (allTracks.count < page.totalListLength) {
-        [allTracks addObjectsFromArray:page.tracksForPlayback];
-        [_playlistSnapshot.firstTrackPage requestNextPageWithSession:[PlayerManager sharedInstance].session  callback:^(NSError *error, SPTListPage *page) {
-                [self loadTracksForPage:page];
-        }];
-    } else
-    {
-        NSLog(@"done loading tracks %@",allTracks);
-        //sort tracks by arist, then song
-        [self sortTracksByArtist];
-        [self.collectionView reloadData];
-    }
 }
 
 - (void)sortTracksByArtist
 {
-    NSArray* ids = [allTracks valueForKeyPath:@"artists.identifier"];
+    NSArray* ids = [_allTracks valueForKeyPath:@"artists.name"];
     NSSet* uniqueIDs = [NSSet setWithArray:ids];
     for (NSArray* anIDs in [uniqueIDs allObjects])
     {
         NSString *anID =[anIDs firstObject];
+        NSLog(@"anID %@",anID);
         [sortedTracks setObject:[self tracksForArtistID:anID] forKey:anID];
         //[sortedTracks setObject:[self tracksForArtistID:anID] forKey:anID];
     }
+
     
     NSLog(@"result %@",sortedTracks);
 }
 - (NSArray *)tracksForArtistID:(NSString *)artistID
 {
-    return [allTracks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"artists.identifier contains[cd] %@",artistID]];
+    return [[_allTracks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"artists.name contains[cd] %@",artistID]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"album.releaseDate" ascending:YES]]];
 }
 
-- (NSString *)artistNameForIdentifier:(NSString *)artistID
-{
-    
-    NSArray *tracks =  [allTracks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"artists.identifier contains[cd] %@",artistID]];
-    SPTPartialTrack *track = [tracks firstObject];
-    
-    if (track) {
-        SPTPartialArtist *artist = [track.artists firstObject];
-        return artist.name;
-        //NSLog(@"name %@",[track.artists firstObject]);
-    }
-    return @"";
-
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -115,22 +103,23 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TrackCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    NSArray *keys = [sortedTracks allKeys];
-    NSArray *values = [sortedTracks[keys[indexPath.section]]sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+    NSArray *keys = [[sortedTracks allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *values = sortedTracks[keys[indexPath.section]];
     
     if (indexPath.item == 0) {
-        NSArray *keys = [sortedTracks allKeys];
-         cell.trackName.text = [self artistNameForIdentifier:keys[indexPath.section]];
+        NSArray *keys = [[sortedTracks allKeys]sortedArrayUsingSelector:@selector(compare:)];
+         cell.trackName.text = keys[indexPath.section];
             cell.indentView.hidden = YES;
+        cell.trackArtist.text = nil;
+        
 
     }
     else {
-        SPTPartialTrack *track = [values objectAtIndex:indexPath.row - 1];
+        SPTPlaylistTrack *track = [values objectAtIndex:indexPath.row - 1];
         cell.trackName.text = track.name;
         SPTPartialArtist *artist = [track.artists firstObject];
-        cell.trackArtist.text = artist.name;
+        cell.trackArtist.text = nil;//artist.name;
         cell.indentView.hidden = NO;
-
     }
     
     return cell;
@@ -147,7 +136,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if ([segue.identifier isEqualToString:@"playTrack"]) {
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
         NSArray *keys = [sortedTracks allKeys];
-        NSArray *values = [sortedTracks[keys[indexPath.section]]sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+        NSArray *values = sortedTracks[keys[indexPath.section]];
         
         PlayerViewController *controller = segue.destinationViewController;
         controller.tracks = values;

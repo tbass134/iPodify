@@ -10,6 +10,8 @@
 
 @interface PlaylistsCollectionViewController : UICollectionViewController
 @property(nonatomic,strong)NSMutableArray *playlists;
+@property(nonatomic,strong)UIActivityIndicatorView *activityView;
+
 @property (nonatomic, strong) void (^playlistSelected)(SPTPartialPlaylist *playlist); //used to add a track to a playlist
 
 @end
