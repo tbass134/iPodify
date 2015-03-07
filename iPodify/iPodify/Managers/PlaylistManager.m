@@ -22,6 +22,32 @@
     return _sharedInstance;
 }
 
+- (void)allPlaylists:(void (^)(NSArray *playlists))completion
+{
+    __block NSMutableArray *allPlaylists = [NSMutableArray new];
+    
+    [[PlaylistManager sharedInstance]loadPlaylists:^(NSError *error, NSArray *playlists) {
+        
+        [[PlaylistManager sharedInstance]loadStarredPlaylist:^(NSError *error, SPTPlaylistSnapshot *snapshot) {
+            
+            [allPlaylists addObject:snapshot];
+            
+            [[PlaylistManager sharedInstance]loadSavedTracks:^(NSError *error, NSArray *tracks) {
+                
+                [allPlaylists addObject:tracks];
+                [allPlaylists addObjectsFromArray:playlists];
+                
+                if (completion) {
+                    completion(allPlaylists);
+                }
+
+            }];
+
+        }];
+    }];
+
+}
+
 - (void)loadPlaylists:(void (^)(NSError *, NSArray *))callback
 {
     [SPTRequest playlistsForUserInSession:[PlayerManager sharedInstance].session callback:^(NSError *error, id object) {
